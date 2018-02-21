@@ -1,4 +1,4 @@
-# Android-Interme-BCP
+# Android-Intermediate-BCP
 
 Android Intermediate Course -Belatrix BCP - February 2018
 
