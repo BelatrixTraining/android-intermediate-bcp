@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">KotlinTemplate</string>
+    <string name="button_black">black</string>
+    <string name="button_red">red</string>
+    <string name="button_blue">blue</string>
+    <string name="button_green">green</string>
+    <string name="button_save">save</string>
+    <string name="button_reset">reset</string>
+</resources>
