@@ -19,8 +19,10 @@ import java.io.FileOutputStream;
 
 public class FileActivity extends AppCompatActivity {
     private static final int EXTERNAL_STORAGE_PERMISSION_CONSTANT = 100;
-    EditText fname,fcontent;
-    Button write,read;
+    private EditText fname,fcontent;
+    private Button write,read;
+
+    private String currentFile=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +53,9 @@ public class FileActivity extends AppCompatActivity {
 
     private void readFile() {
 
+        if(currentFile==null) return;
         // TODO Auto-generated method stub
-        String readfilename = "file1";
+        String readfilename = currentFile;
         FileOperations fop = new FileOperations();
         String text = fop.read(readfilename);
         if(text != null){
@@ -70,8 +73,10 @@ public class FileActivity extends AppCompatActivity {
         FileOperations fop = new FileOperations();
         fop.write(filename, filecontent);
         if(fop.write(filename, filecontent)){
+            currentFile= filename;
             Toast.makeText(getApplicationContext(), filename+".txt created", Toast.LENGTH_SHORT).show();
         }else{
+            currentFile=null;
             Toast.makeText(getApplicationContext(), "I/O error", Toast.LENGTH_SHORT).show();
 
         }
