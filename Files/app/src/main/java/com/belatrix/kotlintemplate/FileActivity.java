@@ -1,22 +1,110 @@
 package com.belatrix.kotlintemplate;
 
+import android.Manifest;
 import android.content.Context;
-import android.os.Environment;
-import android.support.v7.app.AppCompatActivity;
+import android.content.DialogInterface;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Environment;
+import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileOutputStream;
 
 public class FileActivity extends AppCompatActivity {
+    private static final int EXTERNAL_STORAGE_PERMISSION_CONSTANT = 100;
+    EditText fname,fcontent;
+    Button write,read;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_file);
+        requestPermissions();
+        ui();
+    }
+
+    private void ui() {
+        fname = (EditText)findViewById(R.id.editTextName);
+        fcontent = (EditText)findViewById(R.id.editTextContent);
+        write = (Button)findViewById(R.id.buttonSave);
+        read = (Button)findViewById(R.id.buttonRead);
+        write.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                writeFile();
+            }
+        });
+        read.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                readFile();
+            }
+        });
+    }
+
+    private void readFile() {
+
+        // TODO Auto-generated method stub
+        String readfilename = "file1";
+        FileOperations fop = new FileOperations();
+        String text = fop.read(readfilename);
+        if(text != null){
+            Toast.makeText(getApplicationContext(),text,Toast.LENGTH_LONG).show();
+        }
+        else {
+            Toast.makeText(getApplicationContext(), "File not Found", Toast.LENGTH_SHORT).show();
+        }
 
     }
 
+    private void writeFile(){
+        String filename = fname.getText().toString();
+        String filecontent = fcontent.getText().toString();
+        FileOperations fop = new FileOperations();
+        fop.write(filename, filecontent);
+        if(fop.write(filename, filecontent)){
+            Toast.makeText(getApplicationContext(), filename+".txt created", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(getApplicationContext(), "I/O error", Toast.LENGTH_SHORT).show();
+
+        }
+    }
+
+
+    private void requestPermissions(){
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+                || ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("Need Storage Permission");
+                builder.setMessage("This app needs storage permission.");
+                builder.setPositiveButton("Grant", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                        ActivityCompat.requestPermissions(FileActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                                Manifest.permission.READ_EXTERNAL_STORAGE}, EXTERNAL_STORAGE_PERMISSION_CONSTANT);
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder.show();
+                //ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                //Manifest.permission.READ_EXTERNAL_STORAGE}, EXTERNAL_STORAGE_PERMISSION_CONSTANT);
+        }
+
+    }
     //Internal Storage
 
     private void saveFile(String filename){
