@@ -6,4 +6,10 @@
     <string name="button_green">green</string>
     <string name="button_save">save</string>
     <string name="button_reset">reset</string>
+    <string name="log_in">LogIn</string>
+    <string name="username">Username</string>
+    <string name="email">E-mail</string>
+    <string name="email_hint">abc@abc.com</string>
+    <string name="username_hint">Eduardo Medina A.</string>
+    <string name="notifications">Notifications</string>
 </resources>
