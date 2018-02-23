@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import com.belatrix.kotlintemplate.storage.PreferencesHelper;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -34,7 +36,7 @@ public class SplashActivity extends AppCompatActivity {
                     //go To Dashboard
                 }*/
 
-                /*boolean session= PreferencesHelper.isSignedIn(SplashActivity.this);
+                boolean session= PreferencesHelper.isSignedIn(SplashActivity.this);
                 if(session)
                 {
                     intent=new Intent(SplashActivity.this, DashboardActivity.class);
@@ -42,7 +44,7 @@ public class SplashActivity extends AppCompatActivity {
                     intent = new Intent(SplashActivity.this, LogInActivity.class);
                 }
                 startActivity(intent);
-                finish();*/
+                finish();
             }
         };
 

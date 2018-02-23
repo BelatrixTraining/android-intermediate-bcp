@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -23,6 +24,8 @@ public class SPActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sp);
         app();
+
+        renderSP();
     }
 
     private void renderSP(){
@@ -34,8 +37,8 @@ public class SPActivity extends AppCompatActivity {
     }
 
     private void saveSP(){
-        saveStringKey("USERNAME","EDU");
-        saveStringKey("PASSWORD","123456");
+        saveStringKey("USERNAME","Eduardo");
+        saveStringKey("PASSWORD","123");
     }
 
     private void clearSP(){
@@ -49,7 +52,7 @@ public class SPActivity extends AppCompatActivity {
         //textView.setText("TEXTO...");
         textView.setText("");
 
-        /*
+
         //eventos
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,7 +70,7 @@ public class SPActivity extends AppCompatActivity {
                 clearSP();
                 renderSP();
             }
-        });*/
+        });
     }
 
     private void app() {
@@ -100,8 +103,8 @@ public class SPActivity extends AppCompatActivity {
     private void setUpSharedPreferences(){
 
         //getSharedPreferences("com.belatrix.sharedpref",Context.MODE_PRIVATE);
-
-        sharedPreferences=getSharedPreferences("DEMO", Context.MODE_PRIVATE);
+        sharedPreferences=getSharedPreferences("com.belatrix.sharedpref",
+                Context.MODE_PRIVATE);
         //sharedPreferences=getSharedPreferences("DEMO", Context.MODE_APPEND);
         sharedPreferencesEditor= sharedPreferences.edit();
     }
@@ -152,7 +155,7 @@ public class SPActivity extends AppCompatActivity {
     }
 
     private void clear(){
-        //sharedPreferencesEditor.remove(key);
+        //sharedPreferencesEditor.remove("USERNAME");
         //sharedPreferencesEditor.remove(key);
         sharedPreferencesEditor.clear();
         sharedPreferencesEditor.apply();

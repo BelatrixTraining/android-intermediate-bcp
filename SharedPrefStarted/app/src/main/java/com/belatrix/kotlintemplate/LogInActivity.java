@@ -33,9 +33,9 @@ public class LogInActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*if (validateForm()) {
+                if (validateForm()) {
                     gotoMain();
-                }*/
+                }
             }
         });
         btnRegister.setOnClickListener(new View.OnClickListener() {

@@ -16,7 +16,6 @@ public class FileOperations {
 
 	 public Boolean write(String fname, String fcontent){
 			try {
-				 
 				
 				String fpath = "/sdcard/"+fname+".txt";
 	 
