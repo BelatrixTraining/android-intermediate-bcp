@@ -44,7 +44,7 @@ Luego, si queremos guadar un valor usamos el método "putString(key, value)" par
  
  saveStringKey("USERNAME","edu");
 ```
-Despúes de guardar , lo siguientes es poder obtener los valores almacenados. Tener presente que requerimos del
+Despúes de guardar , lo siguiente es poder obtener los valores almacenados. Tener presente que requerimos del
 
 ```java
  private void retrieveStringValue(String key){
@@ -54,6 +54,26 @@ Despúes de guardar , lo siguientes es poder obtener los valores almacenados. Te
   ...
   retrieveStringValue("USERNAME");
 ````
+
+Otra opción que disponemos , es eliminar un elemento del SP o limpiar todo el SP con todos los elementos almacenados.
+
+Si queremos eliminar solo un elemento, necesitamos el Key
+
+```java
+  sharedPreferencesEditor.remove(key);
+  sharedPreferencesEditor.apply();
+```
+
+Pero , si lo que necesitamos es borrar o limpiar todo el SP
+
+```java
+ private void clear(){
+        
+        //sharedPreferencesEditor.remove(key);
+        sharedPreferencesEditor.clear();
+        sharedPreferencesEditor.apply();
+    }
+```
 
 ## References 
 
