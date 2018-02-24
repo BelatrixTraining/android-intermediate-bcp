@@ -97,13 +97,15 @@ public class SPActivity extends AppCompatActivity {
         //retrieveStringValue("USERNAME");
 
         //textView.setText(mOperaciones);
+
+        renderSP();
     }
 
     private void setUpSharedPreferences(){
 
         //getSharedPreferences("com.belatrix.sharedpref",Context.MODE_PRIVATE);
 
-        sharedPreferences=getSharedPreferences("DEMO", Context.MODE_PRIVATE);
+        sharedPreferences=getSharedPreferences("com.belatrix.sharedpref", Context.MODE_PRIVATE);
         //sharedPreferences=getSharedPreferences("DEMO", Context.MODE_APPEND);
         sharedPreferencesEditor= sharedPreferences.edit();
     }

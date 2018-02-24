@@ -42,7 +42,7 @@ public class SharedPrefIActivity extends AppCompatActivity implements View.OnCli
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.button:
-                    selectedColor("#000000");
+                    selectedColor("#DF013A");
                 break;
             case R.id.button5:
                 save();
