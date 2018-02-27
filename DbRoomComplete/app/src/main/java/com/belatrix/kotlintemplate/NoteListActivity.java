@@ -1,5 +1,6 @@
 package com.belatrix.kotlintemplate;
 
+import android.content.Entity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,10 +10,12 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.belatrix.kotlintemplate.model.NoteEntity;
 import com.belatrix.kotlintemplate.storage.CRUDOperations;
 import com.belatrix.kotlintemplate.storage.MyDatabase;
+import com.belatrix.kotlintemplate.storage.NoteRepository;
 import com.belatrix.kotlintemplate.ui.adapters.NoteAdapter;
 
 import java.util.List;
@@ -29,6 +32,7 @@ public class NoteListActivity extends AppCompatActivity {
     private List<NoteEntity> lsNoteEntities;
     private CRUDOperations crudOperations;
     private NoteAdapter noteAdapter;
+    private NoteRepository noteRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +40,30 @@ public class NoteListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_note_list);
         init();
         //populate();
+        //populateRoom();
         //loadData();
+        //loadDataRoom();
+    }
+
+    private void loadDataRoom() {
+        noteRepository= ((NoteApplication)(getApplication())).getNoteRepository();
+
+        noteRepository.getAllNotes(new NoteRepository.PopulateCallback() {
+            @Override
+            public void onSuccess(List<NoteEntity> noteEntities) {
+                renderNotes(noteEntities);
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+                showErrorMessage(e.toString());
+            }
+        });
+    }
+    private void renderNotes(List<NoteEntity> noteEntities){
+        lsNoteEntities= noteEntities;
+        noteAdapter= new NoteAdapter(this,lsNoteEntities);
+        lstNotes.setAdapter(noteAdapter);
     }
 
     private void loadData() {
@@ -46,6 +73,26 @@ public class NoteListActivity extends AppCompatActivity {
         lstNotes.setAdapter(noteAdapter);
     }
 
+    private void showErrorMessage(String error){
+        Toast.makeText(this,"Error : "+error,Toast.LENGTH_SHORT).show();
+    }
+
+    /* Error
+    Caused by: java.lang.IllegalStateException: Cannot access database on the main thread since it may potentially lock the UI for a long period of time.
+     */
+    private void populateRoom() {
+        noteRepository= ((NoteApplication)(getApplication())).getNoteRepository();
+
+        //new NoteEntity("Mi Nota","Esta es un nota ",null)
+        noteRepository.addNotes(new NoteEntity(1,"Mi Nota","Esta es un nota ",null),
+        new NoteEntity(2,"Segunda Nota","Esta es la segunds nota ",null),
+        new NoteEntity(3,"Tercera Nota","Esta es la tercera nota ",null),
+        new NoteEntity(4,"Cuarta Nota","Esta es la cuarta nota ",null),
+        new NoteEntity(5,"Quinta Nota","Esta es la quinta nota ",null),
+        new NoteEntity(6,"Sexta Nota","Esta es la sexta nota ",null));
+
+        //Log.v(TAG, "populate " + crudOperations.getAllNotes());
+    }
     private void populate() {
 
         CRUDOperations crudOperations= new CRUDOperations(new MyDatabase(this));
@@ -123,7 +170,8 @@ public class NoteListActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         Log.v(TAG, "MainActivity onResumen - 2");
-        loadData();
+        //loadData();
+        loadDataRoom();
     }
 
     @Override

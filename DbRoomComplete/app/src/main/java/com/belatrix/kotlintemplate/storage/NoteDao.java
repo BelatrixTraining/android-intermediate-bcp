@@ -39,9 +39,18 @@ public interface NoteDao {
     @Query("DELETE FROM tb_notes")
     void deleteAll();
 
-    @Query("SELECT * FROM user")
+    /**
+     Error
+     @Query("SELECT * FROM user")
+     List<NoteEntity> getAll();
+     Error:(43, 22) error: There is a problem with the query: [SQLITE_ERROR] SQL error or missing database (no such table: user)
+     */
+
+    @Query("SELECT * FROM tb_notes")
     List<NoteEntity> getAll();
 
+    @Query("select count(*) from tb_notes")
+    long notesCounter();
     /*
     @Query("SELECT * FROM user WHERE age > :minAge")
 

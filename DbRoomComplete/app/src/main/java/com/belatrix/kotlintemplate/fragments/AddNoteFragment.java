@@ -151,8 +151,9 @@ public class AddNoteFragment extends Fragment {
     private void addNote() {
         //bd
         NoteEntity noteEntity= new NoteEntity(name,desc,null);
-        mListener.getCrudOperations().addNote(noteEntity);
+        //mListener.getCrudOperations().addNote(noteEntity);
         //mListener.getCrudOperations().addNote(noteEntity, bdCallback);
+        mListener.getNoteRepository().add(noteEntity);
     }
 
     /*private void bdCallback(){
