@@ -10,6 +10,7 @@ import com.belatrix.kotlintemplate.fragments.listener.OnNoteListener;
 import com.belatrix.kotlintemplate.model.NoteEntity;
 import com.belatrix.kotlintemplate.storage.CRUDOperations;
 import com.belatrix.kotlintemplate.storage.MyDatabase;
+import com.belatrix.kotlintemplate.storage.NoteRepository;
 import com.belatrix.kotlintemplate.ui.dialogs.MyDialogFragment;
 import com.belatrix.kotlintemplate.ui.dialogs.MyDialogListener;
 
@@ -30,6 +31,7 @@ public class NoteActivity extends BaseActivity implements OnNoteListener, MyDial
 
 
     private CRUDOperations crudOperations;
+    private NoteRepository noteRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,8 @@ public class NoteActivity extends BaseActivity implements OnNoteListener, MyDial
         validateExtras();
         enabledBack();
         crudOperations= new CRUDOperations(new MyDatabase(this));
+        noteRepository= ((NoteApplication)(getApplication())).getNoteRepository();
+
         Bundle bundle= new Bundle();
         bundle.putSerializable("NOTE",noteEntity);
         changeFragment(fragmentSelected, bundle);
@@ -82,6 +86,11 @@ public class NoteActivity extends BaseActivity implements OnNoteListener, MyDial
     @Override
     public CRUDOperations getCrudOperations() {
         return crudOperations;
+    }
+
+    @Override
+    public NoteRepository getNoteRepository() {
+        return noteRepository;
     }
 
     @Override
