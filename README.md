@@ -2,37 +2,8 @@
 
 Android Intermediate Course -Belatrix BCP - February 2018
 
-## Instructor
+## Lesson 3
 
-Eduardo José Medina Alfaro
+Continuaremos viendo los ejercicios de la lección 2 y tambien usaremos Room para manejar la DB local.
 
-e-mail: emedinaa@gmail.com
-
-github: https://github.com/emedinaa
-
-## Temary
-
-- Storage Options
-
-  - Files
-  - Shared Preferences
-  - Local Database (Sqlite)
-  - Room
-  - Network Connection
-
-- Android Architecture Patterns
-
-  - MVP
-  
-- Runtime permissions
-
-- Material Design and Animations
-
-- Multimedia
-
-- Google Play Console
-
-## References 
-
-- Storage Options https://developer.android.com/guide/topics/data/data-storage.html
-
+https://github.com/BelatrixTraining/android-intermediate-bcp/tree/L2-LocalDb-Sqlite
