@@ -31,7 +31,8 @@
         <activity
             android:name=".NoteActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".BaseActivity"></activity>
+        <activity android:name=".BaseActivity" />
+        <activity android:name=".SearchNoteActivity"></activity>
     </application>
 
 </manifest>

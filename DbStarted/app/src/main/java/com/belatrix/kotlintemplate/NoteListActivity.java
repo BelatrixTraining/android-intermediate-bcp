@@ -23,7 +23,7 @@ public class NoteListActivity extends AppCompatActivity {
     private static final int ACTION_ADD=1;
     private static final int ACTION_DETAIL=2;
 
-    private TextView tviLogout,tviUser;
+    private TextView tviLogout,textViewSearch;
     private ListView lstNotes;
     private Button btnAddNote;
     private List<NoteEntity> lsNoteEntities;
@@ -61,7 +61,7 @@ public class NoteListActivity extends AppCompatActivity {
 
     private void init() {
         tviLogout= (TextView)findViewById(R.id.tviLogout);
-        tviUser= (TextView)findViewById(R.id.tviUser);
+        textViewSearch= (TextView)findViewById(R.id.textViewSearch);
         lstNotes= (ListView)(findViewById(R.id.lstNotes));
         btnAddNote= (Button)(findViewById(R.id.btnAddNote));
 
@@ -94,6 +94,16 @@ public class NoteListActivity extends AppCompatActivity {
                 logout();
             }
         });
+        textViewSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToSearch();
+            }
+        });
+    }
+
+    private void goToSearch() {
+        startActivity(new Intent(this,SearchNoteActivity.class));
     }
 
     private void gotoNote(int action, NoteEntity noteEntity) {
@@ -123,7 +133,7 @@ public class NoteListActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         Log.v(TAG, "MainActivity onResumen - 2");
-        //loadData();
+        loadData();
     }
 
     @Override
