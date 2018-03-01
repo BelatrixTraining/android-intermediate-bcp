@@ -1,38 +1,22 @@
 # Android-Intermediate-BCP
 
+Android Intermediate Course -Belatrix BCP - February/March 2018
+
+# Android-Intermediate-BCP
+
 Android Intermediate Course -Belatrix BCP - February 2018
 
-## Instructor
+## Lesson 4
 
-Eduardo José Medina Alfaro
-
-e-mail: emedinaa@gmail.com
-
-github: https://github.com/emedinaa
-
-## Temary
-
-- Storage Options
-
-  - Files
-  - Shared Preferences
-  - Local Database (Sqlite)
-  - Room
   - Network Connection
-
-- Android Architecture Patterns
-
-  - MVP
-  
-- Runtime permissions
-
-- Material Design and Animations
-
-- Multimedia
-
-- Google Play Console
 
 ## References 
 
-- Storage Options https://developer.android.com/guide/topics/data/data-storage.html
+- Connecting to the Network https://developer.android.com/training/basics/network-ops/connecting.html
+
+- Transmittin Network Data Using Volley https://developer.android.com/training/volley/index.html
+
+- Retrofit http://square.github.io/retrofit/
+
+- Retrofit 2 tutoriales https://futurestud.io/
 
