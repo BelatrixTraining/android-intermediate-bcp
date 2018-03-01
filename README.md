@@ -24,7 +24,7 @@ JsonEditor , nos permite ver de una manera más ordenada la tramas que recibimos
 Para conectarnos a la nube , necesitamos habilitar el permiso de internet. Para esto nos vamos a AndroidManifest y agregarmos el permiso :
 
 ```
-	...
+...
 	<manifest xmlns:android="http://schemas.android.com/apk/res/android"
 package="com.isil.am2template">
     <uses-permission android:name="android.permission.INTERNET"/>
