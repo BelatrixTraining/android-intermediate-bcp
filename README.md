@@ -23,20 +23,20 @@ JsonEditor , nos permite ver de una manera más ordenada la tramas que recibimos
 
 Para conectarnos a la nube , necesitamos habilitar el permiso de internet. Para esto nos vamos a AndroidManifest y agregarmos el permiso :
 
-	```
-		...
-		<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    	package="com.isil.am2template">
-	    <uses-permission android:name="android.permission.INTERNET"/>
-	    <application
-	        android:allowBackup="true"
-	        android:icon="@mipmap/ic_launcher"
-	        android:label="@string/app_name"
-	        android:roundIcon="@mipmap/ic_launcher_round"
-	        android:supportsRtl="true"
-	        android:theme="@style/AppTheme">
-        ...
-	```
+```
+	...
+	<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+package="com.isil.am2template">
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <application
+	android:allowBackup="true"
+	android:icon="@mipmap/ic_launcher"
+	android:label="@string/app_name"
+	android:roundIcon="@mipmap/ic_launcher_round"
+	android:supportsRtl="true"
+	android:theme="@style/AppTheme">
+...
+```
 
 - Segundo Paso :
 
@@ -50,34 +50,34 @@ OkHtttp : Sobre esta librería se construyo retrofit y es una librería general 
 
 En el file build.gradle de la app realizamos lo siguiente :
 		
-		```
-			dependencies{
-				...
-				    //RETROFIT https://github.com/square/retrofit
-				    //compile 'com.squareup.retrofit:retrofit:1.9.0'
-				    compile "com.squareup.retrofit2:retrofit:$rootProject.retrofit2"
+```
+	dependencies{
+		...
+		    //RETROFIT https://github.com/square/retrofit
+		    //compile 'com.squareup.retrofit:retrofit:1.9.0'
+		    compile "com.squareup.retrofit2:retrofit:$rootProject.retrofit2"
 
-				    //GSON https://github.com/google/gson
-				    //compile 'com.google.code.gson:gson:2.6.2'
-				    compile "com.squareup.retrofit2:converter-gson:$rootProject.gson"
+		    //GSON https://github.com/google/gson
+		    //compile 'com.google.code.gson:gson:2.6.2'
+		    compile "com.squareup.retrofit2:converter-gson:$rootProject.gson"
 
-				    //INTERCEPTOR
-				    compile "com.squareup.okhttp3:logging-interceptor:$rootProject.okhttp3"
+		    //INTERCEPTOR
+		    compile "com.squareup.okhttp3:logging-interceptor:$rootProject.okhttp3"
 
-			}
-		```
+	}
+```
 
-		y las versiones son declaradas en el file build.gradle del proyecto:
+y las versiones son declaradas en el file build.gradle del proyecto:
 		
-		```
-			ext {
-			    ...
+```
+	ext {
+	    ...
 
-			    retrofit2='2.1.0'
-			    gson='2.1.0'
-			    okhttp3='3.3.1'
-			}
-		```
+	    retrofit2='2.1.0'
+	    gson='2.1.0'
+	    okhttp3='3.3.1'
+	}
+```
 ## Probando los servicios 
 	
 Antes de realizar las llamadas a los servicios desde la app , es saludable revisar que los servicios estén operativos y corroborar cuales son las tramas de envío ( request) y de respuesta (response).
@@ -88,9 +88,9 @@ Para esto, vamos a usar POSTMAN
 En esta oportunidad se ha construido un API Rest usando node.js y mongo.db
 La url base es :
 
-	```
-		https://obscure-earth-55790.herokuapp.com/
-	``
+```
+	https://obscure-earth-55790.herokuapp.com/
+```
 
 - Login
 
@@ -98,29 +98,29 @@ La url base es :
 	Path : api/login
 	Url : https://obscure-earth-55790.herokuapp.com/api/login
 	Request :
-	```
-		{
-			"username":"admin@admin.com",
-			"password": "123456"
-		}
-	```
+```
+	{
+		"username":"admin@admin.com",
+		"password": "123456"
+	}
+```
 	Response :
 
-	```
-		{
-		    "msg": "success",
-		    "status": 200,
-		    "data": {
-		        "_id": "59e0540d429d3f501d6493de",
-		        "id": "59e0540d429d3f501d6493de",
-		        "username": "admin@admin.com",
-		        "password": "123456",
-		        "firstname": "Admin",
-		        "lastname": "Admin",
-		        "__v": 0
-		    }
-		}
-	```
+```
+	{
+	    "msg": "success",
+	    "status": 200,
+	    "data": {
+		"_id": "59e0540d429d3f501d6493de",
+		"id": "59e0540d429d3f501d6493de",
+		"username": "admin@admin.com",
+		"password": "123456",
+		"firstname": "Admin",
+		"lastname": "Admin",
+		"__v": 0
+	    }
+	}
+```
 
 - Registro :
 
@@ -129,27 +129,27 @@ La url base es :
 	Url : https://obscure-earth-55790.herokuapp.com/api/users/register
 
 	Request :
-		```
-		{
-			"username":"demo@admin.com",
-			"password":"123456",
-			"firstname": "Demo",
-			"lastname": "Demo"
-		}
-		```
-		Response :
+```
+{
+	"username":"demo@admin.com",
+	"password":"123456",
+	"firstname": "Demo",
+	"lastname": "Demo"
+}
+```
+	Response :
 
-		```
-			{
-			    "__v": 0,
-			    "id": "59ea8b0f3ad73212009b314b",
-			    "username": "demo@admin.com",
-			    "password": "123456",
-			    "firstname": "Demo",
-			    "lastname": "Demo",
-			    "_id": "59ea8b0f3ad73212009b314b"
-			}
-		```
+```
+	{
+	    "__v": 0,
+	    "id": "59ea8b0f3ad73212009b314b",
+	    "username": "demo@admin.com",
+	    "password": "123456",
+	    "firstname": "Demo",
+	    "lastname": "Demo",
+	    "_id": "59ea8b0f3ad73212009b314b"
+	}
+```
 
 - Usuarios :
 
@@ -158,41 +158,41 @@ La url base es :
 	Url : https://obscure-earth-55790.herokuapp.com/api/users/
 
 	Response :
-	```
+```
+	{
+	    "msg": "success",
+	    "status": 200,
+	    "data": [
 		{
-		    "msg": "success",
-		    "status": 200,
-		    "data": [
-		        {
-		            "_id": "59e0540d429d3f501d6493de",
-		            "id": "59e0540d429d3f501d6493de",
-		            "username": "admin@admin.com",
-		            "password": "123456",
-		            "firstname": "Admin",
-		            "lastname": "Admin",
-		            "__v": 0
-		        },
-		        {
-		            "_id": "59e17088225f6f7b12d14b07",
-		            "id": "59e17088225f6f7b12d14b07",
-		            "username": "demo@demo.com",
-		            "password": "123456",
-		            "firstname": "Demo",
-		            "lastname": "Demo",
-		            "__v": 0
-		        },
-		        {
-		            "_id": "59ea8b0f3ad73212009b314b",
-		            "id": "59ea8b0f3ad73212009b314b",
-		            "username": "demo@admin.com",
-		            "password": "123456",
-		            "firstname": "Demo",
-		            "lastname": "Demo",
-		            "__v": 0
-		        }
-		    ]
+		    "_id": "59e0540d429d3f501d6493de",
+		    "id": "59e0540d429d3f501d6493de",
+		    "username": "admin@admin.com",
+		    "password": "123456",
+		    "firstname": "Admin",
+		    "lastname": "Admin",
+		    "__v": 0
+		},
+		{
+		    "_id": "59e17088225f6f7b12d14b07",
+		    "id": "59e17088225f6f7b12d14b07",
+		    "username": "demo@demo.com",
+		    "password": "123456",
+		    "firstname": "Demo",
+		    "lastname": "Demo",
+		    "__v": 0
+		},
+		{
+		    "_id": "59ea8b0f3ad73212009b314b",
+		    "id": "59ea8b0f3ad73212009b314b",
+		    "username": "demo@admin.com",
+		    "password": "123456",
+		    "firstname": "Demo",
+		    "lastname": "Demo",
+		    "__v": 0
 		}
-	```    
+	    ]
+	}
+```    
     
 ## References 
 
