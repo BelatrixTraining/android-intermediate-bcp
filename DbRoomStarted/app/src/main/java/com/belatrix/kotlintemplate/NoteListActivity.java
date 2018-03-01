@@ -170,7 +170,7 @@ public class NoteListActivity extends AppCompatActivity {
         super.onResume();
         Log.v(TAG, "MainActivity onResumen - 2");
         //loadData();
-        //loadDataRoom();
+        loadDataRoom();
     }
 
     @Override
