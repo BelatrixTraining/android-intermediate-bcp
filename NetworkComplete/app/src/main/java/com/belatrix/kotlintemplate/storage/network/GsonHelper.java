@@ -1,6 +1,5 @@
 package com.belatrix.kotlintemplate.storage.network;
 
-import com.belatrix.kotlintemplate.storage.network.entity.LogInResponse;
 import com.belatrix.kotlintemplate.storage.network.entity.NotesResponse;
 import com.google.gson.GsonBuilder;
 

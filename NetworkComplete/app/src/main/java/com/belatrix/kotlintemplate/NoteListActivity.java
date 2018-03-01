@@ -168,8 +168,8 @@ public class NoteListActivity extends AppCompatActivity {
         lstNotes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                NoteDbEntity noteDbEntity = (NoteDbEntity) adapterView.getAdapter().getItem(i);
-                gotoNote(ACTION_DETAIL, noteDbEntity);
+                //NoteDbEntity noteDbEntity = (NoteDbEntity) adapterView.getAdapter().getItem(i);
+                //gotoNote(ACTION_DETAIL, noteDbEntity);
             }
         });
 
