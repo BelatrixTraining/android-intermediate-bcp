@@ -51,32 +51,40 @@ OkHtttp : Sobre esta librería se construyo retrofit y es una librería general 
 En el file build.gradle de la app realizamos lo siguiente :
 		
 ```
-	dependencies{
-		...
-		    //RETROFIT https://github.com/square/retrofit
-		    //compile 'com.squareup.retrofit:retrofit:1.9.0'
-		    compile "com.squareup.retrofit2:retrofit:$rootProject.retrofit2"
+//RETROFIT https://github.com/square/retrofit
+    //compile 'com.squareup.retrofit:retrofit:1.9.0'
+    compile "com.squareup.retrofit2:retrofit:$rootProject.retrofit2"
 
-		    //GSON https://github.com/google/gson
-		    //compile 'com.google.code.gson:gson:2.6.2'
-		    compile "com.squareup.retrofit2:converter-gson:$rootProject.gson"
+    //GSON https://github.com/google/gson
+    compile 'com.google.code.gson:gson:2.8.0'
+    compile "com.squareup.retrofit2:converter-gson:$rootProject.gson"
 
-		    //INTERCEPTOR
-		    compile "com.squareup.okhttp3:logging-interceptor:$rootProject.okhttp3"
-
-	}
+    //INTERCEPTOR
+    compile "com.squareup.okhttp3:logging-interceptor:$rootProject.okhttp3"
 ```
 
 y las versiones son declaradas en el file build.gradle del proyecto:
 		
 ```
-	ext {
-	    ...
+ext {
+    // Sdk and tools
+    minSdkVersion = 15
+    targetSdkVersion = 26
+    compileSdkVersion = 26
+    buildToolsVersion = '26.1.0'
+    constraintLayoutVersion='1.0.2'
 
-	    retrofit2='2.1.0'
-	    gson='2.1.0'
-	    okhttp3='3.3.1'
-	}
+    // App dependencies
+    supportLibraryVersion = '26.1.0'
+    junitVersion = '4.12'
+
+    roomVersion= '1.0.0'
+    gsonVersion='2.8.0'
+
+    retrofit2='2.3.0'
+    gson='2.3.0'
+    okhttp3='3.4.1'
+}
 ```
 ## Probando los servicios 
 	
