@@ -200,7 +200,16 @@ La url base es :
 		}
 	    ]
 	}
-```    
+```   
+
+- Notas 
+	Método : GET
+	Path : api/notes/
+	Url : https://obscure-earth-55790.herokuapp.com/api/notes/
+	
+```
+{"msg":"success","status":200,"data":[{"_id":"59f3c5f5145d3812006ab70d","id":"59f3c5f5145d3812006ab70d","name":"My nota","description":"Esta es un nota del server","path":"","userId":"59e0540d429d3f501d6493de","__v":0},{"_id":"59f3cc7df3474b1200ef4749","id":"59f3cc7df3474b1200ef4749","name":"Aviso","description":"Tomar UA3","path":"","userId":"59e0540d429d3f501d6493de","__v":0},{"_id":"59f3d417f3474b1200ef476a","id":"59f3d417f3474b1200ef476a","name":"My nota2","description":"Test Note4","path":"","userId":"59e0540d429d3f501d6493de","__v":0},{"_id":"59f3d459f3474b1200ef476b","id":"59f3d459f3474b1200ef476b","name":"Aviso","description":"Get ready for UA3","path":"","userId":"59e0540d429d3f501d6493de","__v":0},{"_id":"59f3d4def3474b1200ef476c","id":"59f3d4def3474b1200ef476c","name":"Recordatorio","description":"Entregable 2 del proyecto android","path":"","userId":"59e0540d429d3f501d6493de","__v":0},{"_id":"59f3d926f3474b1200ef476d","id":"59f3d926f3474b1200ef476d","name":"Recordatorio","description":"Entregable 2 del proyecto android","path":"","userId":"59e0540d429d3f501d6493de","__v":0},{"_id":"59f3df96f3474b1200ef476e","id":"59f3df96f3474b1200ef476e","description":"Nota de la app","name":"nota desde la app","userId":"59e0540d429d3f501d6493de","__v":0},{"_id":"59f48504e863f612000bc670","id":"59f48504e863f612000bc670","name":"Nota demo 1","description":"Nota de usuario demo 1","path":"","userId":"59e17088225f6f7b12d14b07","__v":0},{"_id":"59f48513e863f612000bc671","id":"59f48513e863f612000bc671","name":"Nota demo 2","description":"Nota de usuario demo 2","path":"","userId":"59e17088225f6f7b12d14b07","__v":0},{"_id":"59f4851be863f612000bc672","id":"59f4851be863f612000bc672","name":"Nota demo 3 Update 1","description":"Nota de usuario demo 3","path":"","userId":"59e17088225f6f7b12d14b07","__v":0},{"_id":"59f498c6502b052218b25479","id":"59f498c6502b052218b25479","name":"My nota 00","description":"Esta es un nota 00","path":"","userId":"59e0540d429d3f501d6493de","__v":0},{"_id":"59f4999d2e554e9918fe21a9","id":"59f4999d2e554e9918fe21a9","name":"My nota 02","description":"Esta es un nota 02","path":"","userId":"59e0540d429d3f501d6493de","__v":0},{"_id":"59f49a0e2e554e9918fe21aa","id":"59f49a0e2e554e9918fe21aa","name":"My nota 02","description":"Esta es un nota 02","path":"","userId":"59e0540d429d3f501d6493de","__v":0}]}
+```
     
 ## References 
 
