@@ -12,16 +12,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.belatrix.kotlintemplate.model.NoteDbEntity;
-
 import com.belatrix.kotlintemplate.model.NoteEntity;
 import com.belatrix.kotlintemplate.storage.NoteRepository;
 import com.belatrix.kotlintemplate.storage.network.ApiClient;
-import com.belatrix.kotlintemplate.storage.network.GsonHelper;
 import com.belatrix.kotlintemplate.storage.network.entity.NotesResponse;
 import com.belatrix.kotlintemplate.ui.adapters.NoteAdapter;
 import com.belatrix.kotlintemplate.ui.adapters.NoteDbAdapter;
-
-import org.json.JSONObject;
 
 import java.util.List;
 
@@ -71,14 +67,15 @@ public class NoteListActivity extends AppCompatActivity {
     }
 
     private void loadDataNetwork(){
-        showLoading();
+        //showLoading();
         Call<NotesResponse> call= ApiClient.getMyApiClient().notes();
         call.enqueue(new Callback<NotesResponse>() {
             @Override
             public void onResponse(Call<NotesResponse> call, Response<NotesResponse> response) {
-                hideLoading();
+                //hideLoading();
 
-                if(response!=null){
+                Log.v("CONSOLE","onResponse "+response);
+                /*if(response!=null){
                     NotesResponse notesResponse=null;
 
                     if(response.isSuccessful()){
@@ -105,14 +102,15 @@ public class NoteListActivity extends AppCompatActivity {
                     }
                 }else{
                     showErrorMessage("Ocurrió un error");
-                }
+                }*/
             }
 
             @Override
             public void onFailure(Call<NotesResponse> call, Throwable t) {
                 hideLoading();
-                Toast.makeText(NoteListActivity.this,
-                        "error "+t.getMessage(),Toast.LENGTH_LONG).show();
+                Log.v("CONSOLE","error "+t.getMessage());
+                /*Toast.makeText(NoteListActivity.this,
+                        "error "+t.getMessage(),Toast.LENGTH_LONG).show();*/
             }
         });
 

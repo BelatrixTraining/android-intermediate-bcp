@@ -38,4 +38,13 @@ public class NotesResponse {
     public void setData(List<NoteEntity> data) {
         this.data = data;
     }
+
+    @Override
+    public String toString() {
+        return "NotesResponse{" +
+                "msg='" + msg + '\'' +
+                ", status=" + status +
+                ", data=" + data +
+                '}';
+    }
 }
