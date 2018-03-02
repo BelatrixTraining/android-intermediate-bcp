@@ -205,7 +205,9 @@ La url base es :
 - Notas 
 
 Método : GET
+
 Path : api/notes/
+
 Url : https://obscure-earth-55790.herokuapp.com/api/notes/
 	
 ```
