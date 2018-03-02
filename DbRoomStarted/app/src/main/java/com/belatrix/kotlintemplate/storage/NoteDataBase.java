@@ -16,7 +16,7 @@ import com.belatrix.kotlintemplate.model.NoteEntity;
  * Created by emedinaa on 2/25/18.
  */
 
-@Database(entities = {NoteEntity.class}, version = 1)
+@Database(entities = {NoteEntity.class}, version = 2)
 public  abstract class NoteDataBase extends RoomDatabase {
 
     public abstract NoteDao noteDao();

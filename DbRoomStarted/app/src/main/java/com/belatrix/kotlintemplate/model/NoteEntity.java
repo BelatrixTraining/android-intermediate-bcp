@@ -14,7 +14,7 @@ import java.io.Serializable;
 @Entity(tableName = "tb_notes")
 public class NoteEntity implements Serializable {
 
-    @PrimaryKey
+    @PrimaryKey (autoGenerate= true)
     @NonNull
     @ColumnInfo(name = "id")
     private int id;
