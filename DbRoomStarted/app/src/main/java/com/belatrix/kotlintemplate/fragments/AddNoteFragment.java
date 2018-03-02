@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.belatrix.kotlintemplate.R;
 import com.belatrix.kotlintemplate.fragments.listener.OnNoteListener;
+import com.belatrix.kotlintemplate.model.NoteEntity;
 
 
 public class AddNoteFragment extends Fragment {
@@ -155,6 +156,8 @@ public class AddNoteFragment extends Fragment {
         //mListener.getCrudOperations().addNote(noteEntity, bdCallback);
         mListener.getNoteRepository().add(noteEntity);
         */
+        NoteEntity noteEntity= new NoteEntity(name,desc,null);
+        mListener.getNoteRepository().add(noteEntity);
     }
 
     /*private void bdCallback(){
@@ -169,6 +172,6 @@ public class AddNoteFragment extends Fragment {
 
     private void closeActivity(){
         //ui
-        //getActivity().finish();
+        getActivity().finish();
     }
 }

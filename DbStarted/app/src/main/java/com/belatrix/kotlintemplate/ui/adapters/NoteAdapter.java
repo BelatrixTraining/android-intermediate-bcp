@@ -61,6 +61,11 @@ public class NoteAdapter extends BaseAdapter {
         return v;
     }
 
+    public void reset(List<NoteEntity> noteEntities){
+        lsNoteEntities=noteEntities;
+        notifyDataSetChanged();
+    }
+
     static class ViewHolder
     {
         ImageView iviNote;

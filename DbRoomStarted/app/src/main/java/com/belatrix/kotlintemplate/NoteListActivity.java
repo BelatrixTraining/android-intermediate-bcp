@@ -55,9 +55,19 @@ public class NoteListActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Exception e) {
+
+            }
+        });/*new NoteRepository.PopulateCallback() {
+            @Override
+            public void onSuccess(List<NoteEntity> noteEntities) {
+                renderNotes(noteEntities);
+            }
+
+            @Override
+            public void onFailure(Exception e) {
                 showErrorMessage(e.toString());
             }
-        });
+        });*/
     }
     private void renderNotes(List<NoteEntity> noteEntities){
         lsNoteEntities= noteEntities;
@@ -170,7 +180,7 @@ public class NoteListActivity extends AppCompatActivity {
         super.onResume();
         Log.v(TAG, "MainActivity onResumen - 2");
         //loadData();
-        //loadDataRoom();
+        loadDataRoom();
     }
 
     @Override
