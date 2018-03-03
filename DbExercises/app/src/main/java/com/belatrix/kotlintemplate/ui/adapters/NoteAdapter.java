@@ -50,12 +50,20 @@ public class NoteAdapter extends BaseAdapter {
             v = inflater.inflate(R.layout.row_note, null);
             ViewHolder holder = new ViewHolder();
             holder.tviName = (TextView)v.findViewById(R.id.tviName);
+            holder.imageViewFavourite = v.findViewById(R.id.imageViewFavourite);
             v.setTag(holder);
         }
         NoteEntity entry = lsNoteEntities.get(position);
         if(entry != null) {
             ViewHolder holder = (ViewHolder)v.getTag();
             holder.tviName.setText(entry.getName());
+            if(entry.isFavourite()){
+                holder.imageViewFavourite.setImageResource(
+                        R.drawable.ic_favourite_2);
+            }else {
+                holder.imageViewFavourite.setImageResource(
+                        R.drawable.ic_favourite);
+            }
         }
 
         return v;
@@ -71,5 +79,6 @@ public class NoteAdapter extends BaseAdapter {
     {
         ImageView iviNote;
         TextView tviName;
+        ImageView imageViewFavourite;
     }
 }

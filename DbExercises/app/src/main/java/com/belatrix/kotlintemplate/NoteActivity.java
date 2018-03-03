@@ -108,7 +108,8 @@ public class NoteActivity extends BaseActivity implements OnNoteListener, MyDial
 
     @Override
     public void editNote(NoteEntity noteEntity) {
-        crudOperations.updateNote(noteEntity);
+        //crudOperations.updateNote(noteEntity);
+        noteRepository.update(noteEntity);
     }
 
     @Override

@@ -1,10 +1,7 @@
 package com.belatrix.kotlintemplate.storage;
 
 import android.arch.persistence.db.SupportSQLiteDatabase;
-import android.arch.persistence.db.SupportSQLiteOpenHelper;
 import android.arch.persistence.room.Database;
-import android.arch.persistence.room.DatabaseConfiguration;
-import android.arch.persistence.room.InvalidationTracker;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
@@ -16,7 +13,7 @@ import com.belatrix.kotlintemplate.model.NoteEntity;
  * @author Eduardo Medina
  */
 
-@Database(entities = {NoteEntity.class}, version = 2)
+@Database(entities = {NoteEntity.class}, version = 3)
 public  abstract class NoteDataBase extends RoomDatabase {
 
     public abstract NoteDao noteDao();

@@ -61,7 +61,8 @@ public class NoteRepository {
     }
 
     public void update(NoteEntity noteEntity){
-        noteDao.update(noteEntity);
+        //noteDao.update(noteEntity);
+        new UpdateAsyncTask(noteDao).execute(noteEntity);
     }
 
     public void delete(NoteEntity noteEntity){
@@ -76,6 +77,20 @@ public class NoteRepository {
         void onFailure(Exception e);
     }
 
+    private static class UpdateAsyncTask extends AsyncTask<NoteEntity, Void, Void> {
+
+        private final NoteDao mAsyncTaskDao;
+
+        UpdateAsyncTask(NoteDao dao) {
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final NoteEntity... params) {
+            mAsyncTaskDao.update(params[0]);
+            return null;
+        }
+    }
     private static class InsertAsyncTask extends AsyncTask<NoteEntity, Void, Void> {
 
         private final NoteDao mAsyncTaskDao;

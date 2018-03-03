@@ -83,12 +83,18 @@ public class NoteListActivity extends AppCompatActivity {
         noteRepository= ((NoteApplication)(getApplication())).getNoteRepository();
 
         //new NoteEntity("Mi Nota","Esta es un nota ",null)
-        noteRepository.addNotes(new NoteEntity(1,"Mi Nota","Esta es un nota ",null),
-        new NoteEntity(2,"Segunda Nota","Esta es la segunds nota ",null),
-        new NoteEntity(3,"Tercera Nota","Esta es la tercera nota ",null),
-        new NoteEntity(4,"Cuarta Nota","Esta es la cuarta nota ",null),
-        new NoteEntity(5,"Quinta Nota","Esta es la quinta nota ",null),
-        new NoteEntity(6,"Sexta Nota","Esta es la sexta nota ",null));
+        noteRepository.addNotes(new NoteEntity(1,
+                        "Mi Nota","Esta es un nota ",false),
+        new NoteEntity(2,
+                "Segunda Nota","Esta es la segunds nota ",true),
+        new NoteEntity(3,
+                "Tercera Nota","Esta es la tercera nota ",false),
+        new NoteEntity(4,
+                "Cuarta Nota","Esta es la cuarta nota ",false),
+        new NoteEntity(5,
+                "Quinta Nota","Esta es la quinta nota ",true),
+        new NoteEntity(6,
+                "Sexta Nota","Esta es la sexta nota ",false));
 
         //Log.v(TAG, "populate " + crudOperations.getAllNotes());
     }

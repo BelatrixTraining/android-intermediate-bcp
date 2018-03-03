@@ -25,11 +25,21 @@ public class NoteEntity implements Serializable {
     @ColumnInfo(name = "desc")
     private String description;
 
+    @ColumnInfo(name = "favourite")
+    private boolean favourite; //false
+
     //@ColumnInfo(name = "path")
     @Ignore
     private String path;
 
     public NoteEntity() {
+    }
+
+    public NoteEntity(@NonNull int id, String name, String description, boolean favourite) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.favourite = favourite;
     }
 
     public NoteEntity(int id, String name, String description, String path) {
@@ -77,12 +87,21 @@ public class NoteEntity implements Serializable {
         this.path = path;
     }
 
+    public boolean isFavourite() {
+        return favourite;
+    }
+
+    public void setFavourite(boolean favourite) {
+        this.favourite = favourite;
+    }
+
     @Override
     public String toString() {
         return "NoteEntity{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
+                ", favourite=" + favourite +
                 ", path='" + path + '\'' +
                 '}';
     }
