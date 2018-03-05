@@ -1,21 +1,14 @@
 package com.belatrix.kotlintemplate.storage.network.entity;
 
-import com.belatrix.kotlintemplate.model.UserEntity;
-
-import java.util.List;
-
 /**
- * Created by emedinaa on 14/10/17.
+ * Created by eduardomedina on 5/03/18.
  */
 
-public class UsersResponse {
+public class BaseResponse {
 
+    private final int STATUS_CODE=200;
     private String msg;
-
     private int status;
-
-    private List<UserEntity> data;
-
 
     public String getMsg() {
         return msg;
@@ -33,11 +26,7 @@ public class UsersResponse {
         this.status = status;
     }
 
-    public List<UserEntity> getData() {
-        return data;
-    }
-
-    public void setData(List<UserEntity> data) {
-        this.data = data;
+    public boolean isSuccess(){
+        return (status==STATUS_CODE)?(true):(false);
     }
 }

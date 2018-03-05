@@ -1,6 +1,6 @@
 package com.belatrix.kotlintemplate.fragments;
 
-import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,7 +11,7 @@ import android.widget.EditText;
 
 import com.belatrix.kotlintemplate.R;
 import com.belatrix.kotlintemplate.fragments.listener.OnNoteListener;
-import com.belatrix.kotlintemplate.model.NoteDbEntity;
+import com.belatrix.kotlintemplate.model.NoteEntity;
 
 
 public class DetailsFragment extends Fragment {
@@ -28,7 +28,7 @@ public class DetailsFragment extends Fragment {
     private String mParam2;
 
     private OnNoteListener mListener;
-    private NoteDbEntity noteDbEntity;
+    private NoteEntity noteEntity;
 
     private  String editNoteName, editNoteDesc;
 
@@ -64,12 +64,12 @@ public class DetailsFragment extends Fragment {
 
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
+    public void onAttach(Context context) {
+        super.onAttach(context);
         try {
-            mListener = (OnNoteListener) activity;
+            mListener = (OnNoteListener) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
+            throw new ClassCastException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
     }
@@ -83,18 +83,18 @@ public class DetailsFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        btnDeleteNote=(Button)getView().findViewById(R.id.btnDeleteNote);
-        btnEditNote=(Button)getView().findViewById(R.id.btnEditNote);
+        btnDeleteNote=getView().findViewById(R.id.btnDeleteNote);
+        btnEditNote=getView().findViewById(R.id.btnEditNote);
 
         if(getArguments()!=null)
         {
-            noteDbEntity = (NoteDbEntity)getArguments().getSerializable("NOTE");
+            noteEntity = (NoteEntity) getArguments().getSerializable("NOTE");
         }
-        if(noteDbEntity !=null)
+        if(noteEntity !=null)
         {
             //TODO mostrar INFO
-            String name= noteDbEntity.getName().toString();
-            String desc= noteDbEntity.getDescription().toString();
+            String name= noteEntity.getName().toString();
+            String desc= noteEntity.getDescription().toString();
 
             ((EditText)getView().findViewById(R.id.eteName)).setText(name);
             ((EditText)getView().findViewById(R.id.eteDesc)).setText(desc);
@@ -103,7 +103,7 @@ public class DetailsFragment extends Fragment {
         btnDeleteNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener.deleteNote(noteDbEntity);
+                mListener.deleteNoteNetwork(noteEntity);
             }
         });
         btnEditNote.setOnClickListener(new View.OnClickListener() {
@@ -111,7 +111,7 @@ public class DetailsFragment extends Fragment {
             public void onClick(View v) {
                 if(validateForm()){
                     editNote();
-                    closeActivity();
+                    //closeActivity();
                 }
             }
         });
@@ -119,9 +119,14 @@ public class DetailsFragment extends Fragment {
 
     private void editNote(){
         //base de datos
-        int id = noteDbEntity.getId();
-        NoteDbEntity editNoteDbEntity = new NoteDbEntity(id,editNoteName,editNoteDesc,null);
-        mListener.editNote(editNoteDbEntity);
+        String id =noteEntity.getId();
+        NoteEntity editNoteEntity = new NoteEntity();
+        editNoteEntity.setId(id);
+        editNoteEntity.setName(editNoteName);
+        editNoteEntity.setDescription(editNoteDesc);
+        editNoteEntity.setUserId("001");
+
+        mListener.editNoteNetwork(editNoteEntity);
     }
 
     private boolean validateForm(){

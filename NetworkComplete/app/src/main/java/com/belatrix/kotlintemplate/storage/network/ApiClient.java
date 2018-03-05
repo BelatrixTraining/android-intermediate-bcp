@@ -4,6 +4,8 @@ package com.belatrix.kotlintemplate.storage.network;
 import com.belatrix.kotlintemplate.model.UserEntity;
 import com.belatrix.kotlintemplate.storage.network.entity.LogInRaw;
 import com.belatrix.kotlintemplate.storage.network.entity.LogInResponse;
+import com.belatrix.kotlintemplate.storage.network.entity.NoteRaw;
+import com.belatrix.kotlintemplate.storage.network.entity.NoteResponse;
 import com.belatrix.kotlintemplate.storage.network.entity.NotesResponse;
 import com.belatrix.kotlintemplate.storage.network.entity.UserRaw;
 import com.belatrix.kotlintemplate.storage.network.entity.UsersResponse;
@@ -14,8 +16,11 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Path;
 
 
 /**
@@ -63,6 +68,17 @@ public class ApiClient {
         //https://obscure-earth-55790.herokuapp.com/api/notes
         @GET("/api/notes")
         Call<NotesResponse> notes();
+
+        @POST("/api/notes/register")
+        Call<NoteResponse> addNote(@Body NoteRaw raw);
+
+        //update
+        @PUT("/api/notes/{id}")
+        Call<NoteResponse> updateNote(@Path("id") String noteId, @Body NoteRaw raw);
+
+        //delete
+        @DELETE("/api/notes/{id}")
+        Call<NoteResponse> deleteNote(@Path("id") String noteId);
 
         /*
         //v1/data/Notes

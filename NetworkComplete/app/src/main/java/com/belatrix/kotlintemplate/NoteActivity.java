@@ -3,16 +3,29 @@ package com.belatrix.kotlintemplate;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
 import com.belatrix.kotlintemplate.fragments.AddNoteFragment;
 import com.belatrix.kotlintemplate.fragments.DetailsFragment;
 import com.belatrix.kotlintemplate.fragments.listener.OnNoteListener;
 import com.belatrix.kotlintemplate.model.NoteDbEntity;
+import com.belatrix.kotlintemplate.model.NoteEntity;
 import com.belatrix.kotlintemplate.storage.CRUDOperations;
 import com.belatrix.kotlintemplate.storage.MyDatabase;
 import com.belatrix.kotlintemplate.storage.NoteRepository;
+import com.belatrix.kotlintemplate.storage.network.ApiClient;
+import com.belatrix.kotlintemplate.storage.network.GsonHelper;
+import com.belatrix.kotlintemplate.storage.network.entity.NoteRaw;
+import com.belatrix.kotlintemplate.storage.network.entity.NoteResponse;
 import com.belatrix.kotlintemplate.ui.dialogs.MyDialogFragment;
 import com.belatrix.kotlintemplate.ui.dialogs.MyDialogListener;
+
+import org.json.JSONObject;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class NoteActivity extends BaseActivity implements OnNoteListener, MyDialogListener {
@@ -26,9 +39,8 @@ public class NoteActivity extends BaseActivity implements OnNoteListener, MyDial
     private AddNoteFragment addNoteFragment= AddNoteFragment.newInstance(null,null);
     private DetailsFragment detailsFragment= DetailsFragment.newInstance(null,null);
     private int fragmentSelected= DETAIL_NOTE;
-    private NoteDbEntity noteDbEntity;
-    private NoteDbEntity currentNote;
-
+    private NoteEntity currentNote;
+    private NoteEntity noteEntity;
 
     private CRUDOperations crudOperations;
     private NoteRepository noteRepository;
@@ -43,7 +55,7 @@ public class NoteActivity extends BaseActivity implements OnNoteListener, MyDial
         noteRepository= ((NoteApplication)(getApplication())).getNoteRepository();
 
         Bundle bundle= new Bundle();
-        bundle.putSerializable("NOTE", noteDbEntity);
+        bundle.putSerializable("NOTE", noteEntity);
         changeFragment(fragmentSelected, bundle);
     }
 
@@ -51,7 +63,7 @@ public class NoteActivity extends BaseActivity implements OnNoteListener, MyDial
         if(getIntent().getExtras()!=null)
         {
             fragmentSelected= getIntent().getExtras().getInt("FRAGMENT",DETAIL_NOTE);
-            noteDbEntity = (NoteDbEntity)getIntent().getExtras().getSerializable("NOTE");
+            noteEntity = (NoteEntity) getIntent().getExtras().getSerializable("NOTE");
         }
     }
 
@@ -95,8 +107,17 @@ public class NoteActivity extends BaseActivity implements OnNoteListener, MyDial
 
     @Override
     public void deleteNote(NoteDbEntity noteDbEntity) {
+    }
 
-        currentNote= noteDbEntity;
+    @Override
+    public void editNote(NoteDbEntity noteDbEntity) {
+       // crudOperations.updateNote(noteDbEntity);
+    }
+
+    @Override
+    public void deleteNoteNetwork(NoteEntity mNoteEntity) {
+
+        currentNote= mNoteEntity;
         MyDialogFragment myDialogFragment =new MyDialogFragment();
         Bundle bundle= new Bundle();
         bundle.putString("TITLE","¿Deseas eliminar esta nota?");
@@ -104,25 +125,122 @@ public class NoteActivity extends BaseActivity implements OnNoteListener, MyDial
 
         myDialogFragment.setArguments(bundle);
         myDialogFragment.show(getSupportFragmentManager(), "dialog");
+
     }
 
+    private void removeNote(NoteEntity mNoteEntity){
+        showLoading();
+        String noteId= mNoteEntity.getId();
+
+        Call<NoteResponse> call= ApiClient.getMyApiClient().deleteNote(noteId);
+
+        call.enqueue(new Callback<NoteResponse>() {
+            @Override
+            public void onResponse(Call<NoteResponse> call, Response<NoteResponse> response) {
+                hideLoading();
+                if(response!=null){
+                    NoteResponse noteResponse=null;
+
+                    if(response.isSuccessful()) {
+                        noteResponse = response.body();
+                        if(noteResponse!=null && noteResponse.isSuccess()){
+                            currentNote=null;
+                            exitActivity();
+                        }
+                    }else{
+                        JSONObject jsonObject = null;
+                        try {
+                            jsonObject=new JSONObject(response.errorBody().string());
+                        }catch (Exception e){
+                            jsonObject= new JSONObject();
+                        }
+                        noteResponse= GsonHelper.jsonToNoteResponse(jsonObject.toString());
+                        showMessage(noteResponse.getMsg());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<NoteResponse> call, Throwable t) {
+                hideLoading();
+                Toast.makeText(NoteActivity.this,
+                        "error "+t.getMessage(),Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+
     @Override
-    public void editNote(NoteDbEntity noteDbEntity) {
-        crudOperations.updateNote(noteDbEntity);
+    public void editNoteNetwork(NoteEntity mNoteEntity) {
+        showLoading();
+        String noteId = mNoteEntity.getId();
+        NoteRaw noteRaw= new NoteRaw();
+        noteRaw.setId(mNoteEntity.getId());
+        noteRaw.setName(mNoteEntity.getName());
+        noteRaw.setDescription(mNoteEntity.getDescription());
+        noteRaw.setUserId(mNoteEntity.getUserId());
+
+        Call<NoteResponse> call= ApiClient.getMyApiClient().updateNote(noteId,noteRaw);
+
+        call.enqueue(new Callback<NoteResponse>() {
+            @Override
+            public void onResponse(Call<NoteResponse> call, Response<NoteResponse> response) {
+                hideLoading();
+                if(response!=null){
+                    NoteResponse noteResponse=null;
+
+                    if(response.isSuccessful()) {
+                        exitActivity();
+                    }else{
+                        JSONObject jsonObject = null;
+                        try {
+                            jsonObject=new JSONObject(response.errorBody().string());
+                        }catch (Exception e){
+                            jsonObject= new JSONObject();
+                        }
+                        noteResponse= GsonHelper.jsonToNoteResponse(jsonObject.toString());
+                        showMessage(noteResponse.getMsg());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<NoteResponse> call, Throwable t) {
+                hideLoading();
+                Toast.makeText(NoteActivity.this,
+                        "error "+t.getMessage(),Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void showMessage(String message){
+        Toast.makeText(this,
+                "error "+message,Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onPositiveListener(Object object, int type) {
         Log.v("CONSOLE", "dialog positive");
-        if(currentNote!=null) {
-            crudOperations.deleteNote(currentNote);
-            currentNote=null;
-            finish();
-        }
+        if(currentNote==null) return;
+        removeNote(currentNote);
     }
 
     @Override
     public void onNegativeListener(Object object, int type) {
         Log.v(TAG, "dialog negative");
+    }
+
+    @Override
+    public void showLoading() {
+        findViewById(R.id.flayLoading).setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideLoading() {
+        findViewById(R.id.flayLoading).setVisibility(View.GONE);
+    }
+
+    private void exitActivity(){
+        this.finish();
     }
 }

@@ -19,5 +19,5 @@
         app:layout_constraintTop_toTopOf="parent">
 
     </FrameLayout>
-
+    <include layout="@layout/layout_loading"/>
 </android.support.constraint.ConstraintLayout>

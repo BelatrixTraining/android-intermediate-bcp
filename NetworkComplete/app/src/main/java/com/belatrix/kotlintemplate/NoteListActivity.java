@@ -51,7 +51,7 @@ public class NoteListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_note_list);
         init();
 
-        loadDataNetwork();
+        //loadDataNetwork();
     }
 
     private void loadDataRoom() {
@@ -151,11 +151,11 @@ public class NoteListActivity extends AppCompatActivity {
     }
 
     private void init() {
-        tviLogout= (TextView)findViewById(R.id.tviLogout);
-        tviUser= (TextView)findViewById(R.id.tviUser);
-        lstNotes= (ListView)(findViewById(R.id.lstNotes));
-        btnAddNote= (Button)(findViewById(R.id.btnAddNote));
-        flayLoading= (findViewById(R.id.flayLoading));
+        tviLogout= findViewById(R.id.tviLogout);
+        tviUser= findViewById(R.id.tviUser);
+        lstNotes= findViewById(R.id.lstNotes);
+        btnAddNote= findViewById(R.id.btnAddNote);
+        flayLoading= findViewById(R.id.flayLoading);
 
         //events
         btnAddNote.setOnClickListener(new View.OnClickListener() {
@@ -168,8 +168,8 @@ public class NoteListActivity extends AppCompatActivity {
         lstNotes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //NoteDbEntity noteDbEntity = (NoteDbEntity) adapterView.getAdapter().getItem(i);
-                //gotoNote(ACTION_DETAIL, noteDbEntity);
+                NoteEntity noteEntity = (NoteEntity) adapterView.getAdapter().getItem(i);
+                gotoNote(ACTION_DETAIL, noteEntity);
             }
         });
 
@@ -192,7 +192,7 @@ public class NoteListActivity extends AppCompatActivity {
     private void logout() {
     }
 
-    private void gotoNote(int action, NoteDbEntity noteDbEntity) {
+    private void gotoNote(int action, NoteEntity noteEntity) {
         Intent intent= new Intent(this,NoteActivity.class);
 
         switch (action)
@@ -202,9 +202,9 @@ public class NoteListActivity extends AppCompatActivity {
                 startActivity(intent);
                 break;
             case ACTION_DETAIL:
-                /*intent.putExtra("FRAGMENT",NoteActivity.DETAIL_NOTE);
-                intent.putExtra("NOTE", noteDbEntity);
-                startActivity(intent);*/
+                intent.putExtra("FRAGMENT",NoteActivity.DETAIL_NOTE);
+                intent.putExtra("NOTE", noteEntity);
+                startActivity(intent);
                 break;
         }
     }
@@ -213,7 +213,7 @@ public class NoteListActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        //loadDataRoom();
+        loadDataNetwork();
     }
 
     @Override

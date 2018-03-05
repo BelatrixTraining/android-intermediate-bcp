@@ -1,6 +1,6 @@
 package com.belatrix.kotlintemplate.fragments;
 
-import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -12,10 +12,21 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.belatrix.kotlintemplate.R;
 import com.belatrix.kotlintemplate.fragments.listener.OnNoteListener;
 import com.belatrix.kotlintemplate.model.NoteDbEntity;
+import com.belatrix.kotlintemplate.storage.network.ApiClient;
+import com.belatrix.kotlintemplate.storage.network.GsonHelper;
+import com.belatrix.kotlintemplate.storage.network.entity.NoteRaw;
+import com.belatrix.kotlintemplate.storage.network.entity.NoteResponse;
+
+import org.json.JSONObject;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class AddNoteFragment extends Fragment {
@@ -71,12 +82,12 @@ public class AddNoteFragment extends Fragment {
 
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
+    public void onAttach(Context context) {
+        super.onAttach(context);
         try {
-            mListener = (OnNoteListener) activity;
+            mListener = (OnNoteListener) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
+            throw new ClassCastException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
     }
@@ -90,18 +101,17 @@ public class AddNoteFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        eteName=(EditText)getView().findViewById(R.id.eteName);
-        eteDesc=(EditText)getView().findViewById(R.id.eteDesc);
-        eteNote=(EditText)getView().findViewById(R.id.eteNote);
-        btnAddNote=(Button)getView().findViewById(R.id.btnAddNote);
+        eteName=getView().findViewById(R.id.eteName);
+        eteDesc=getView().findViewById(R.id.eteDesc);
+        eteNote=getView().findViewById(R.id.eteNote);
+        btnAddNote=getView().findViewById(R.id.btnAddNote);
 
         //events
         btnAddNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(validateForm()){
-                    addNote();
-                    closeActivity();
+                    addNoteNetwork();
                 }
             }
         });
@@ -156,15 +166,66 @@ public class AddNoteFragment extends Fragment {
         mListener.getNoteRepository().add(noteDbEntity);
     }
 
-    /*private void bdCallback(){
-        onSuccess(){
+    /*
+        POST https://obscure-earth-55790.herokuapp.com/api/notes/register
+        {"msg":"error Need a userId param"}
+     */
+    private void addNoteNetwork(){
+        showLoading();
+        NoteRaw noteRaw= new NoteRaw();
+        noteRaw.setName(name);
+        noteRaw.setDescription(desc);
+        noteRaw.setUserId("001");
+        Call<NoteResponse> call= ApiClient.getMyApiClient().addNote(noteRaw);
 
+        call.enqueue(new Callback<NoteResponse>() {
+            @Override
+            public void onResponse(Call<NoteResponse> call, Response<NoteResponse> response) {
+                hideLoading();
+                if(response!=null){
+                    NoteResponse noteResponse=null;
+
+                    if(response.isSuccessful()) {
+                        closeActivity();
+                    }else{
+                        JSONObject jsonObject = null;
+                        try {
+                            jsonObject=new JSONObject(response.errorBody().string());
+                        }catch (Exception e){
+                            jsonObject= new JSONObject();
+                        }
+                        noteResponse= GsonHelper.jsonToNoteResponse(jsonObject.toString());
+                        showMessage(noteResponse.getMsg());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<NoteResponse> call, Throwable t) {
+                hideLoading();
+                Toast.makeText(getActivity(),
+                        "error "+t.getMessage(),Toast.LENGTH_LONG).show();
+            }
+        });
+
+    }
+
+    private void showMessage(String message){
+        Toast.makeText(getActivity(),
+                "error "+message,Toast.LENGTH_LONG).show();
+    }
+
+    private void showLoading(){
+        if(mListener!=null){
+            mListener.showLoading();
         }
+    }
 
-        onError(){
-
+    private void hideLoading(){
+        if(mListener!=null){
+            mListener.hideLoading();
         }
-    }*/
+    }
 
     private void closeActivity(){
         //ui
