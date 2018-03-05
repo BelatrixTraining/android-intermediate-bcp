@@ -50,7 +50,8 @@ public class NoteListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_list);
         init();
-
+        
+        loadDataNetwork();
     }
 
     private void loadDataRoom() {
@@ -211,7 +212,7 @@ public class NoteListActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        loadDataNetwork();
+        //loadDataNetwork();
     }
 
     @Override

@@ -111,7 +111,7 @@ public class AddNoteFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if(validateForm()){
-                    addNoteNetwork();
+                    //addNoteNetwork();
                 }
             }
         });
@@ -125,7 +125,7 @@ public class AddNoteFragment extends Fragment {
 
                 if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)) {
                     if(validateForm()){
-                        addNoteNetwork();
+                        //addNoteNetwork();
                     }
                 }
                 return false;
