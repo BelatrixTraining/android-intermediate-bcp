@@ -103,14 +103,14 @@ public class DetailsFragment extends Fragment {
         btnDeleteNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //mListener.deleteNoteNetwork(noteEntity);
+                mListener.deleteNoteNetwork(noteEntity);
             }
         });
         btnEditNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(validateForm()){
-                    //editNote();
+                    editNote();
                 }
             }
         });

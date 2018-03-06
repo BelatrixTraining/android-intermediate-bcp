@@ -51,7 +51,7 @@ public class NoteListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_note_list);
         init();
         
-        loadDataNetwork();
+        //loadDataNetwork();
     }
 
     private void loadDataRoom() {
@@ -212,7 +212,7 @@ public class NoteListActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        //loadDataNetwork();
+        loadDataNetwork();
     }
 
     @Override
