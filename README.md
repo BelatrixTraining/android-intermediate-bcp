@@ -51,32 +51,40 @@ OkHtttp : Sobre esta librería se construyo retrofit y es una librería general 
 En el file build.gradle de la app realizamos lo siguiente :
 		
 ```
-	dependencies{
-		...
-		    //RETROFIT https://github.com/square/retrofit
-		    //compile 'com.squareup.retrofit:retrofit:1.9.0'
-		    compile "com.squareup.retrofit2:retrofit:$rootProject.retrofit2"
+//RETROFIT https://github.com/square/retrofit
+    //compile 'com.squareup.retrofit:retrofit:1.9.0'
+    compile "com.squareup.retrofit2:retrofit:$rootProject.retrofit2"
 
-		    //GSON https://github.com/google/gson
-		    //compile 'com.google.code.gson:gson:2.6.2'
-		    compile "com.squareup.retrofit2:converter-gson:$rootProject.gson"
+    //GSON https://github.com/google/gson
+    compile 'com.google.code.gson:gson:2.8.0'
+    compile "com.squareup.retrofit2:converter-gson:$rootProject.gson"
 
-		    //INTERCEPTOR
-		    compile "com.squareup.okhttp3:logging-interceptor:$rootProject.okhttp3"
-
-	}
+    //INTERCEPTOR
+    compile "com.squareup.okhttp3:logging-interceptor:$rootProject.okhttp3"
 ```
 
 y las versiones son declaradas en el file build.gradle del proyecto:
 		
 ```
-	ext {
-	    ...
+ext {
+    // Sdk and tools
+    minSdkVersion = 15
+    targetSdkVersion = 26
+    compileSdkVersion = 26
+    buildToolsVersion = '26.1.0'
+    constraintLayoutVersion='1.0.2'
 
-	    retrofit2='2.1.0'
-	    gson='2.1.0'
-	    okhttp3='3.3.1'
-	}
+    // App dependencies
+    supportLibraryVersion = '26.1.0'
+    junitVersion = '4.12'
+
+    roomVersion= '1.0.0'
+    gsonVersion='2.8.0'
+
+    retrofit2='2.3.0'
+    gson='2.3.0'
+    okhttp3='3.4.1'
+}
 ```
 ## Probando los servicios 
 	
@@ -192,13 +200,27 @@ La url base es :
 		}
 	    ]
 	}
-```    
+```   
+
+- Notas 
+
+Método : GET
+
+Path : api/notes/
+
+Url : https://obscure-earth-55790.herokuapp.com/api/notes/
+	
+```
+
+{"msg":"success","status":200,"data":[{"_id":"59f3c5f5145d3812006ab70d","id":"59f3c5f5145d3812006ab70d","name":"My nota","description":"Esta es un nota del server","path":"","userId":"59e0540d429d3f501d6493de","__v":0},{"_id":"59f3cc7df3474b1200ef4749","id":"59f3cc7df3474b1200ef4749","name":"Aviso","description":"Tomar UA3","path":"","userId":"59e0540d429d3f501d6493de","__v":0},{"_id":"59f3d417f3474b1200ef476a","id":"59f3d417f3474b1200ef476a","name":"My nota2","description":"Test Note4","path":"","userId":"59e0540d429d3f501d6493de","__v":0},{"_id":"59f3d459f3474b1200ef476b","id":"59f3d459f3474b1200ef476b","name":"Aviso","description":"Get ready for UA3","path":"","userId":"59e0540d429d3f501d6493de","__v":0},{"_id":"59f3d4def3474b1200ef476c","id":"59f3d4def3474b1200ef476c","name":"Recordatorio","description":"Entregable 2 del proyecto android","path":"","userId":"59e0540d429d3f501d6493de","__v":0},{"_id":"59f3d926f3474b1200ef476d","id":"59f3d926f3474b1200ef476d","name":"Recordatorio","description":"Entregable 2 del proyecto android","path":"","userId":"59e0540d429d3f501d6493de","__v":0},{"_id":"59f3df96f3474b1200ef476e","id":"59f3df96f3474b1200ef476e","description":"Nota de la app","name":"nota desde la app","userId":"59e0540d429d3f501d6493de","__v":0},{"_id":"59f48504e863f612000bc670","id":"59f48504e863f612000bc670","name":"Nota demo 1","description":"Nota de usuario demo 1","path":"","userId":"59e17088225f6f7b12d14b07","__v":0},{"_id":"59f48513e863f612000bc671","id":"59f48513e863f612000bc671","name":"Nota demo 2","description":"Nota de usuario demo 2","path":"","userId":"59e17088225f6f7b12d14b07","__v":0},{"_id":"59f4851be863f612000bc672","id":"59f4851be863f612000bc672","name":"Nota demo 3 Update 1","description":"Nota de usuario demo 3","path":"","userId":"59e17088225f6f7b12d14b07","__v":0},{"_id":"59f498c6502b052218b25479","id":"59f498c6502b052218b25479","name":"My nota 00","description":"Esta es un nota 00","path":"","userId":"59e0540d429d3f501d6493de","__v":0},{"_id":"59f4999d2e554e9918fe21a9","id":"59f4999d2e554e9918fe21a9","name":"My nota 02","description":"Esta es un nota 02","path":"","userId":"59e0540d429d3f501d6493de","__v":0},{"_id":"59f49a0e2e554e9918fe21aa","id":"59f49a0e2e554e9918fe21aa","name":"My nota 02","description":"Esta es un nota 02","path":"","userId":"59e0540d429d3f501d6493de","__v":0}]}
+
+```
     
 ## References 
 
 - Connecting to the Network https://developer.android.com/training/basics/network-ops/connecting.html
 
-- Transmittin Network Data Using Volley https://developer.android.com/training/volley/index.html
+- Transmitting Network Data Using Volley https://developer.android.com/training/volley/index.html
 
 - Retrofit http://square.github.io/retrofit/
 
