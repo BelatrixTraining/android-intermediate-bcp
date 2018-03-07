@@ -7,6 +7,7 @@ import com.belatrix.kotlintemplate.storage.network.entity.LogInBLResponse;
 import com.belatrix.kotlintemplate.storage.network.entity.LogInRaw;
 import com.belatrix.kotlintemplate.storage.network.entity.LogInResponse;
 import com.belatrix.kotlintemplate.storage.network.entity.NoteBLRaw;
+import com.belatrix.kotlintemplate.storage.network.entity.NoteBLResponse;
 import com.belatrix.kotlintemplate.storage.network.entity.NoteRaw;
 import com.belatrix.kotlintemplate.storage.network.entity.NoteResponse;
 import com.belatrix.kotlintemplate.storage.network.entity.NotesBLResponse;
@@ -76,14 +77,14 @@ public class ApiClient {
         //Create Note
         //https://api.backendless.com/<application-id>/<REST-api-key>/data/<table-name>
         @POST("/{applicationid}/{restapikey}/data/Note")
-        Call<Object> addNoteBL(@Path("applicationid") String appID,
-                               @Path("restapikey") String restApiKEY, @HeaderMap Map<String, String> headers,
-                               @Body NoteBLRaw noteBLRaw);
+        Call<NoteBLResponse> addNoteBL(@Path("applicationid") String appID,
+                                       @Path("restapikey") String restApiKEY, @HeaderMap Map<String, String> headers,
+                                       @Body NoteBLRaw noteBLRaw);
 
         //Delete Note
         //https://api.backendless.com/<application-id>/<REST-api-key>/data/<table-name>/<object-id>
         @DELETE("/{applicationid}/{restapikey}/data/Note/{objectId}")
-        Call<Object> deleteNoteBL(@Path("applicationid") String appID,
+        Call<NoteBLResponse> deleteNoteBL(@Path("applicationid") String appID,
                                   @Path("restapikey") String restApiKEY, @HeaderMap Map<String, String> headers,
                                   @Path("objectId")String objectId);
 
@@ -91,7 +92,7 @@ public class ApiClient {
         //https://api.backendless.com/<application-id>/<REST-api-key>/data/<table-name>/<object-id>
 
         @PUT("/{applicationid}/{restapikey}/data/Note/{objectId}")
-        Call<Object> updateNoteBL(@Path("applicationid") String appID,
+        Call<NoteBLResponse> updateNoteBL(@Path("applicationid") String appID,
                                   @Path("restapikey") String restApiKEY, @HeaderMap Map<String, String> headers,
                                   @Path("objectId")String objectId,@Body NoteBLRaw noteBLRaw);
 

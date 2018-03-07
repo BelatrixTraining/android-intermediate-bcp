@@ -11,7 +11,7 @@ import android.widget.EditText;
 
 import com.belatrix.kotlintemplate.R;
 import com.belatrix.kotlintemplate.fragments.listener.OnNoteListener;
-import com.belatrix.kotlintemplate.model.NoteEntity;
+import com.belatrix.kotlintemplate.model.NoteBLEntity;
 
 
 public class DetailsFragment extends Fragment {
@@ -28,7 +28,7 @@ public class DetailsFragment extends Fragment {
     private String mParam2;
 
     private OnNoteListener mListener;
-    private NoteEntity noteEntity;
+    private NoteBLEntity noteEntity;
 
     private  String editNoteName, editNoteDesc;
 
@@ -88,12 +88,12 @@ public class DetailsFragment extends Fragment {
 
         if(getArguments()!=null)
         {
-            noteEntity = (NoteEntity) getArguments().getSerializable("NOTE");
+            noteEntity = (NoteBLEntity) getArguments().getSerializable("NOTE");
         }
         if(noteEntity !=null)
         {
             //TODO mostrar INFO
-            String name= noteEntity.getName().toString();
+            String name= noteEntity.getTitle().toString();
             String desc= noteEntity.getDescription().toString();
 
             ((EditText)getView().findViewById(R.id.eteName)).setText(name);
@@ -118,12 +118,11 @@ public class DetailsFragment extends Fragment {
 
     private void editNote(){
         //base de datos
-        String id =noteEntity.getId();
-        NoteEntity editNoteEntity = new NoteEntity();
-        editNoteEntity.setId(id);
-        editNoteEntity.setName(editNoteName);
+        String id =noteEntity.getObjectId();
+        NoteBLEntity editNoteEntity = new NoteBLEntity();
+        editNoteEntity.setObjectId(id);
+        editNoteEntity.setTitle(editNoteName);
         editNoteEntity.setDescription(editNoteDesc);
-        editNoteEntity.setUserId("001");
 
         mListener.editNoteNetwork(editNoteEntity);
     }

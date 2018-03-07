@@ -16,13 +16,19 @@ import android.widget.Toast;
 
 import com.belatrix.kotlintemplate.R;
 import com.belatrix.kotlintemplate.fragments.listener.OnNoteListener;
-import com.belatrix.kotlintemplate.model.NoteDbEntity;
 import com.belatrix.kotlintemplate.storage.network.ApiClient;
 import com.belatrix.kotlintemplate.storage.network.GsonHelper;
+import com.belatrix.kotlintemplate.storage.network.StorageConstant;
+import com.belatrix.kotlintemplate.storage.network.entity.NoteBLRaw;
+import com.belatrix.kotlintemplate.storage.network.entity.NoteBLResponse;
 import com.belatrix.kotlintemplate.storage.network.entity.NoteRaw;
 import com.belatrix.kotlintemplate.storage.network.entity.NoteResponse;
+import com.belatrix.kotlintemplate.storage.preferences.PreferencesHelper;
 
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -111,7 +117,7 @@ public class AddNoteFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if(validateForm()){
-                    addNoteNetwork();
+                    addNoteBL();
                 }
             }
         });
@@ -125,7 +131,7 @@ public class AddNoteFragment extends Fragment {
 
                 if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)) {
                     if(validateForm()){
-                        addNoteNetwork();
+                        addNoteBL();
                     }
                 }
                 return false;
@@ -157,10 +163,46 @@ public class AddNoteFragment extends Fragment {
         eteDesc.setError(null);
     }
 
-    private void addNote() {
-        //bd
-        NoteDbEntity noteDbEntity = new NoteDbEntity(name,desc,null);
-        mListener.getNoteRepository().add(noteDbEntity);
+    /*
+        {"created":1520381606285,
+        "___class":"Note",
+        "description":"Nota de prueba",
+        "ownerId":"B0254EE8-CC3E-EDD8-FF5A-423577F08F00",
+        "title":"Note 1","updated":null,
+        "objectId":"E4B4B15D-9EDE-675A-FFB7-CA51A0094600"}
+     */
+    private void addNoteBL(){
+        showLoading();
+
+        String token= PreferencesHelper.getTokenSession(getActivity());
+        Map<String, String> map = new HashMap<>();
+        map.put("user-token",token);
+
+        NoteBLRaw noteBLRaw= new NoteBLRaw();
+        noteBLRaw.setTitle(name);
+        noteBLRaw.setDescription(desc);
+        Call<NoteBLResponse> call= ApiClient.getMyApiClient().addNoteBL(
+                StorageConstant.APPLICATIONID, StorageConstant.RESTAPIKEY,
+                map,noteBLRaw);
+
+        call.enqueue(new Callback<NoteBLResponse>() {
+            @Override
+            public void onResponse(Call<NoteBLResponse> call, Response<NoteBLResponse> response) {
+                hideLoading();
+                if(response!=null && response.isSuccessful()){
+                    closeActivity();
+                }else{
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<NoteBLResponse> call, Throwable t) {
+                hideLoading();
+                Toast.makeText(getActivity(),
+                        "error "+t.getMessage(),Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     /*
