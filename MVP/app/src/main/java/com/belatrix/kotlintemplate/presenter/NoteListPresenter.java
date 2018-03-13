@@ -51,6 +51,9 @@ public class NoteListPresenter {
         });
     }
 
+    public void logout(){
+        view.logOut();
+    }
     public void attachView(NoteListView view){
         this.view=view;
     }

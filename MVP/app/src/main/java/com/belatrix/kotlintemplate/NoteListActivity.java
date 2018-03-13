@@ -14,15 +14,11 @@ import android.widget.Toast;
 import com.belatrix.kotlintemplate.model.NoteBLEntity;
 import com.belatrix.kotlintemplate.model.NoteEntity;
 import com.belatrix.kotlintemplate.storage.network.ApiClient;
-import com.belatrix.kotlintemplate.storage.network.GsonHelper;
 import com.belatrix.kotlintemplate.storage.network.StorageConstant;
 import com.belatrix.kotlintemplate.storage.network.entity.NotesBLResponse;
-import com.belatrix.kotlintemplate.storage.network.entity.NotesResponse;
 import com.belatrix.kotlintemplate.storage.preferences.PreferencesHelper;
 import com.belatrix.kotlintemplate.ui.adapters.NoteAdapter;
 import com.belatrix.kotlintemplate.ui.adapters.NoteBLAdapter;
-
-import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.List;
@@ -85,60 +81,6 @@ public class NoteListActivity extends AppCompatActivity {
                 showMessage(t.getMessage());
             }
         });
-    }
-
-    private void loadDataNetwork(){
-        showLoading();
-        Call<NotesResponse> call= ApiClient.getMyApiClient().notes();
-        call.enqueue(new Callback<NotesResponse>() {
-            @Override
-            public void onResponse(Call<NotesResponse> call, Response<NotesResponse> response) {
-                hideLoading();
-
-                if(response!=null){
-                    NotesResponse notesResponse=null;
-
-                    if(response.isSuccessful()){
-                        notesResponse=response.body();
-                        if(notesResponse!=null){
-                            if(notesResponse.getStatus()==200){
-                                Log.v("CONSOLE", "success "+notesResponse);
-                                renderNotes(notesResponse.getData());
-                            }else{
-                                Log.v("CONSOLE", "error "+notesResponse);
-                            }
-                        }
-                    }else{
-                        Log.v("CONSOLE", "error "+notesResponse);
-                        JSONObject jsonObject = null;
-                        try {
-                            jsonObject=new JSONObject(response.errorBody().string());
-                        }catch (Exception e){
-                            jsonObject= new JSONObject();
-                        }
-
-                        notesResponse= GsonHelper.jsonToNotesResponse(jsonObject.toString());
-                        showErrorMessage(notesResponse.getMsg());
-                    }
-                }else{
-                    showErrorMessage("Ocurrió un error");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<NotesResponse> call, Throwable t) {
-                hideLoading();
-                Toast.makeText(NoteListActivity.this,
-                        "error "+t.getMessage(),Toast.LENGTH_LONG).show();
-            }
-        });
-
-    }
-
-    private void renderNotes(List<NoteEntity> noteEntities){
-        notes= noteEntities;
-        noteAdapter = new NoteAdapter(this,notes);
-        lstNotes.setAdapter(noteAdapter);
     }
 
     private void renderNotesBL(List<NoteBLEntity> mNotes){

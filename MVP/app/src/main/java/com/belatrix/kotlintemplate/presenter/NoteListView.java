@@ -19,4 +19,6 @@ public interface NoteListView {
 
     void goToNote(int action, NoteBLEntity noteEntity);
 
+    void logOut();
+
 }

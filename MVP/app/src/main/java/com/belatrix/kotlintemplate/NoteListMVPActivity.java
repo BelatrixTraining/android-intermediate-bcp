@@ -88,6 +88,7 @@ public class NoteListMVPActivity extends AppCompatActivity implements NoteListVi
             @Override
             public void onClick(View view) {
                 //logout();
+                noteListPresenter.logout();
             }
         });
     }
@@ -138,4 +139,13 @@ public class NoteListMVPActivity extends AppCompatActivity implements NoteListVi
                 break;
         }
     }
+
+    @Override
+    public void logOut() {
+        PreferencesHelper.signOut(this);
+        //startActivity(new Intent(this, LogInActivity.class));
+        startActivity(new Intent(this, LogInMVPActivity.class));
+        finish();
+    }
+
 }
