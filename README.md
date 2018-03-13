@@ -43,3 +43,5 @@ Android Intermediate Course -Belatrix BCP - February/March 2018
 
  - Ejemplo MVP
  https://github.com/emedinaa/android-mvp
+ 
+ - Clean Architecture https://docs.google.com/presentation/d/1Eg2V_0j0UO1V3gvYBMYomsMjS9cxD-p-CldPB68ZQxs/edit?usp=sharing
