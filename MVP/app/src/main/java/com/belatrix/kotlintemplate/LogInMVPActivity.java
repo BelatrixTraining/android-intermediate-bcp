@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import com.belatrix.kotlintemplate.presenter.LogInContract;
 import com.belatrix.kotlintemplate.presenter.LogInPresenter;
+import com.belatrix.kotlintemplate.storage.network.entity.LogInBLResponse;
+import com.belatrix.kotlintemplate.storage.preferences.PreferencesHelper;
 
 /**
  * Created by eduardomedina on 13/03/18.
@@ -136,5 +138,12 @@ public class LogInMVPActivity extends AppCompatActivity implements LogInContract
     @Override
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public void saveSession(LogInBLResponse logInResponse) {
+
+        PreferencesHelper.saveBLSession(this,logInResponse.getEmail(),logInResponse.getToken());
+
     }
 }

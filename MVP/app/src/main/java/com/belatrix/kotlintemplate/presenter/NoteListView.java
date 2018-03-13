@@ -1,7 +1,6 @@
 package com.belatrix.kotlintemplate.presenter;
 
 import com.belatrix.kotlintemplate.model.NoteBLEntity;
-import com.belatrix.kotlintemplate.model.NoteEntity;
 
 import java.util.List;
 
@@ -19,4 +18,5 @@ public interface NoteListView {
     void hideLoading();
 
     void goToNote(int action, NoteBLEntity noteEntity);
+
 }

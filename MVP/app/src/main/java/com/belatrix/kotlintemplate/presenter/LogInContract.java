@@ -1,5 +1,7 @@
 package com.belatrix.kotlintemplate.presenter;
 
+import com.belatrix.kotlintemplate.storage.network.entity.LogInBLResponse;
+
 /**
  * Created by emedinaa on 27/10/17.
  */
@@ -17,6 +19,8 @@ public interface LogInContract {
 
         String getUsername();
         String getPassword();
+
+        void saveSession(LogInBLResponse logInResponse);
     }
 
     interface Presenter{

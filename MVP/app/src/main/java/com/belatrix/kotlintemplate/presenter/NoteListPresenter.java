@@ -3,7 +3,6 @@ package com.belatrix.kotlintemplate.presenter;
 import com.belatrix.kotlintemplate.storage.network.ApiClient;
 import com.belatrix.kotlintemplate.storage.network.StorageConstant;
 import com.belatrix.kotlintemplate.storage.network.entity.NotesBLResponse;
-import com.belatrix.kotlintemplate.storage.preferences.PreferencesHelper;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,7 +19,7 @@ public class NoteListPresenter {
 
     private NoteListView view;
 
-    private void loadDataBackendless(String token){
+    public void loadDataBackendless(String token){
         view.showLoading();
 
         //String token= PreferencesHelper.getTokenSession(this);

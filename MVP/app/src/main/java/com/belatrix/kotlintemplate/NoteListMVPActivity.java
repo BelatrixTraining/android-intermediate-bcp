@@ -13,10 +13,9 @@ import android.widget.Toast;
 
 import com.belatrix.kotlintemplate.model.NoteBLEntity;
 import com.belatrix.kotlintemplate.model.NoteEntity;
-import com.belatrix.kotlintemplate.presenter.LogInPresenter;
 import com.belatrix.kotlintemplate.presenter.NoteListPresenter;
 import com.belatrix.kotlintemplate.presenter.NoteListView;
-import com.belatrix.kotlintemplate.ui.adapters.NoteAdapter;
+import com.belatrix.kotlintemplate.storage.preferences.PreferencesHelper;
 import com.belatrix.kotlintemplate.ui.adapters.NoteBLAdapter;
 
 import java.util.List;
@@ -48,6 +47,13 @@ public class NoteListMVPActivity extends AppCompatActivity implements NoteListVi
         setContentView(R.layout.activity_note_list);
         setUpPresenter();
         init();
+        loadNotes();
+
+    }
+
+    private void loadNotes(){
+        String token= PreferencesHelper.getTokenSession(this);
+        noteListPresenter.loadDataBackendless(token);
     }
 
     private void setUpPresenter(){

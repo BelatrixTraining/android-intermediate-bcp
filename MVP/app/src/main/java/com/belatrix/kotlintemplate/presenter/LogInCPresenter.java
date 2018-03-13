@@ -3,8 +3,12 @@ package com.belatrix.kotlintemplate.presenter;
 import android.util.Log;
 
 import com.belatrix.kotlintemplate.storage.network.ApiClient;
-import com.belatrix.kotlintemplate.storage.network.entity.LogInRaw;
-import com.belatrix.kotlintemplate.storage.network.entity.LogInResponse;
+import com.belatrix.kotlintemplate.storage.network.GsonHelper;
+import com.belatrix.kotlintemplate.storage.network.StorageConstant;
+import com.belatrix.kotlintemplate.storage.network.entity.LogInBLRaw;
+import com.belatrix.kotlintemplate.storage.network.entity.LogInBLResponse;
+
+import org.json.JSONObject;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,44 +31,42 @@ public class LogInCPresenter implements LogInContract.Presenter {
 
     @Override
     public void authentication() {
-        String username= view.getUsername();
-        String password= view.getPassword();
+        view.showLoading();
 
-        final LogInRaw logInRaw= new LogInRaw();
-        logInRaw.setUsername(username);
-        logInRaw.setPassword(password);
+        final LogInBLRaw logInRaw= new LogInBLRaw();
+        logInRaw.setLogin(view.getUsername());
+        logInRaw.setPassword(view.getPassword());
 
-        Call<LogInResponse> call= ApiClient.getMyApiClient().login(logInRaw);
-        call.enqueue(new Callback<LogInResponse>() {
+        Call<LogInBLResponse> call= ApiClient.getMyApiClient().logInBL(
+                StorageConstant.APPLICATIONID,
+                StorageConstant.RESTAPIKEY,logInRaw);
+
+        call.enqueue(new Callback<LogInBLResponse>() {
             @Override
-            public void onResponse(Call<LogInResponse> call, Response<LogInResponse> response) {
+            public void onResponse(Call<LogInBLResponse> call, Response<LogInBLResponse> response) {
                 view.hideLoading();
                 if(response!=null){
-                    LogInResponse logInResponse=null;
+                    LogInBLResponse logInResponse=null;
 
                     if(response.isSuccessful()){
                         logInResponse=response.body();
                         if(logInResponse!=null){
-                            if(logInResponse.getStatus()==200){
-                                Log.v("CONSOLE", "success "+logInResponse);
-                                //saveSession(logInResponse);
-                                view.gotoMain();
-                            }else{
-                                Log.v("CONSOLE", "error "+logInResponse);
-                            }
+                            view.saveSession(logInResponse);
+                            view.gotoMain();
                         }
                     }else{
-                        Log.v("CONSOLE", "error "+logInResponse);
+                        //Log.v("CONSOLE", "error "+logInResponse);
+                        Log.v("CONSOLE", "error "+response.errorBody());
 
-                        /*JSONObject jsonObject = null;
+                        JSONObject jsonObject = null;
                         try {
-                            jsonObject=new JSONObject (response.errorBody().string());
+                            jsonObject=new JSONObject(response.errorBody().string());
                         }catch (Exception e){
                             jsonObject= new JSONObject();
                         }
+                        logInResponse= GsonHelper.jsonToLogInBLResponse(jsonObject.toString());
+                        view.showMessage(logInResponse.getMessage());
 
-                        logInResponse= GsonHelper.responseToObject(jsonObject.toString());
-                        showMessage(logInResponse.getMsg());*/
                     }
                 }else{
                     view.showMessage("Ocurrió un error");
@@ -72,12 +74,9 @@ public class LogInCPresenter implements LogInContract.Presenter {
             }
 
             @Override
-            public void onFailure(Call<LogInResponse> call, Throwable t) {
+            public void onFailure(Call<LogInBLResponse> call, Throwable t) {
                 view.hideLoading();
                 view.showMessage(t.getMessage());
-                /*Toast.makeText(LoginActivity.this,
-                        "error "+t.getMessage(),Toast.LENGTH_LONG).show();*/
-                //hideLoading();
             }
         });
     }
