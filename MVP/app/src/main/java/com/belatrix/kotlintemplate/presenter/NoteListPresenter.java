@@ -3,6 +3,7 @@ package com.belatrix.kotlintemplate.presenter;
 import com.belatrix.kotlintemplate.storage.network.ApiClient;
 import com.belatrix.kotlintemplate.storage.network.StorageConstant;
 import com.belatrix.kotlintemplate.storage.network.entity.NotesBLResponse;
+import com.belatrix.kotlintemplate.storage.preferences.PreferencesHelper;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,7 +18,12 @@ import retrofit2.Response;
 
 public class NoteListPresenter {
 
+    private final PreferencesHelper preferencesHelper;
     private NoteListView view;
+
+    public NoteListPresenter(PreferencesHelper preferencesHelper) {
+        this.preferencesHelper = preferencesHelper;
+    }
 
     public void loadDataBackendless(String token){
         view.showLoading();
@@ -37,7 +43,11 @@ public class NoteListPresenter {
                     NotesBLResponse notesResponse=null;
                     if(response.isSuccessful()){
                         notesResponse= response.body();
-                        view.renderNotesBL(notesResponse);
+                        if(notesResponse.isEmpty()){
+                            view.emptyNotes();
+                        }else{
+                            view.renderNotesBL(notesResponse);
+                        }
                     }else{
                     }
                 }

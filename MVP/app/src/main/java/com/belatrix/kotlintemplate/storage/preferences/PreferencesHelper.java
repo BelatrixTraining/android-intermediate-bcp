@@ -11,7 +11,7 @@ public class PreferencesHelper {
     private static final String PREFERENCES_PASSWORD = MYNOTES_PREFERENCES + ".password";
     private static final String PREFERENCES_TOKEN = MYNOTES_PREFERENCES + ".token";
 
-    private PreferencesHelper() {
+    public PreferencesHelper() {
         //no instance
     }
 
@@ -44,6 +44,14 @@ public class PreferencesHelper {
         String username= sharedPreferences.getString(PREFERENCES_USERNAME,null);
 
         return username;
+    }
+
+    public  String getUserTokenSession(Context context)
+    {
+        SharedPreferences sharedPreferences= getSharedPreferences(context);
+        String token= sharedPreferences.getString(PREFERENCES_TOKEN,null);
+
+        return token;
     }
 
     public static String getTokenSession(Context context)

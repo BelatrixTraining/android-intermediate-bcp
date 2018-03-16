@@ -10,15 +10,18 @@ import java.util.List;
 
 public interface NoteListView {
 
-    void renderNotesBL(List<NoteBLEntity> mNotes);
+    void  renderNotesBL(List<NoteBLEntity> mNotes);
+    void  emptyNotes();
     void  showErrorMessage(String error);
     void  showMessage(String message);
 
-    void showLoading();
-    void hideLoading();
+    void  showLoading();
+    void  hideLoading();
 
-    void goToNote(int action, NoteBLEntity noteEntity);
+    void  goToNote(int action, NoteBLEntity noteEntity);
 
-    void logOut();
+    void  logOut();
+
+    //Context getContext();
 
 }

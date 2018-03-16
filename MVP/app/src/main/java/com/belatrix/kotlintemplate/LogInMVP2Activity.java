@@ -14,13 +14,16 @@ import android.widget.Toast;
 import com.belatrix.kotlintemplate.presenter.LogInPresenter;
 import com.belatrix.kotlintemplate.presenter.LogInView;
 import com.belatrix.kotlintemplate.storage.network.entity.LogInBLResponse;
-import com.belatrix.kotlintemplate.storage.preferences.PreferencesHelper;
 
 /**
- * Created by eduardomedina on 13/03/18.
+ * @author : Eduardo Medina
+ * @see : https://developer.android.com/index.html
+ * @since : 3/13/18
  */
 
-public class LogInMVPActivity extends AppCompatActivity implements LogInView {
+
+public class LogInMVP2Activity extends
+        AppCompatActivity implements LogInView {
 
     private Button btnLogin,btnRegister;
     private EditText eteUsername;
@@ -29,6 +32,7 @@ public class LogInMVPActivity extends AppCompatActivity implements LogInView {
     private String password;
 
     private View flayLoading;
+
     private LogInPresenter logInPresenter;
 
     @Override
@@ -40,8 +44,7 @@ public class LogInMVPActivity extends AppCompatActivity implements LogInView {
         init();
     }
 
-
-    private void setUpPresenter(){
+    private void setUpPresenter() {
         logInPresenter= new LogInPresenter();
         logInPresenter.attachView(this);
     }
@@ -58,13 +61,14 @@ public class LogInMVPActivity extends AppCompatActivity implements LogInView {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //logInPresenter.logIn();
                 logInPresenter.logIn();
             }
         });
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gotoUserRegister();
+                //gotoUserRegister();
                 //logInPresenter.goToUserRegister();
             }
         });
@@ -74,14 +78,16 @@ public class LogInMVPActivity extends AppCompatActivity implements LogInView {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
 
                 if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)) {
-                    if(validateForm()){
+                    /*if(validateForm()){
                         logInPresenter.logIn();
-                    }
+                    }*/
+                    logInPresenter.logIn();
                 }
                 return false;
             }
         });
     }
+
 
     @Override
     public void showLoading() {
@@ -95,7 +101,6 @@ public class LogInMVPActivity extends AppCompatActivity implements LogInView {
 
     @Override
     public void gotoMain() {
-        //Intent intent= new Intent(this,NoteListActivity.class);
         Intent intent= new Intent(this,NoteListMVPActivity.class);
         startActivity(intent);
     }
@@ -143,15 +148,5 @@ public class LogInMVPActivity extends AppCompatActivity implements LogInView {
     @Override
     public void saveSession(LogInBLResponse logInResponse) {
 
-        PreferencesHelper.saveBLSession(this,logInResponse.getEmail(),logInResponse.getToken());
-
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if(logInPresenter!=null){
-            logInPresenter.detachView();
-        }
     }
 }

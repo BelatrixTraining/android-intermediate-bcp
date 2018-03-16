@@ -20,7 +20,7 @@ import retrofit2.Response;
 
 public class LogInPresenter {
 
-    private LogInContract.View view;
+    private LogInView view;
 
     public void logIn(){
         if(view.validateForm()){
@@ -82,7 +82,7 @@ public class LogInPresenter {
         });
     }
 
-    public void attachView(LogInContract.View view){
+    public void attachView(LogInView view){
         this.view=view;
     }
     public void detachView(){

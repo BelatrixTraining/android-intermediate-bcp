@@ -24,7 +24,8 @@ import java.util.List;
  * Created by eduardomedina on 13/03/18.
  */
 
-public class NoteListMVPActivity extends AppCompatActivity implements NoteListView {
+public class NoteListMVPActivity extends AppCompatActivity
+        implements NoteListView {
 
     private final String TAG="NoteList";
     private static final int ACTION_ADD=1;
@@ -57,7 +58,7 @@ public class NoteListMVPActivity extends AppCompatActivity implements NoteListVi
     }
 
     private void setUpPresenter(){
-        noteListPresenter= new NoteListPresenter();
+        noteListPresenter= new NoteListPresenter(new PreferencesHelper());
         noteListPresenter.attachView(this);
     }
 
@@ -148,4 +149,8 @@ public class NoteListMVPActivity extends AppCompatActivity implements NoteListVi
         finish();
     }
 
+    @Override
+    public void emptyNotes() {
+        //mostrar mensaje que la lista vacía
+    }
 }
