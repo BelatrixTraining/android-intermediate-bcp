@@ -45,5 +45,5 @@ implements View.OnClickListener{
     private void goToCustomCamera() {
         startActivity(new Intent(this,CustomCameraActivity.class));
     }
-    
+
 }
