@@ -1,71 +1,108 @@
 package com.belatrix.kotlintemplate;
 
-import android.hardware.Camera;
-import android.support.v7.app.AppCompatActivity;
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.FrameLayout;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
-import com.belatrix.kotlintemplate.camera.CameraPreview;
+import com.belatrix.kotlintemplate.camera.CameraPreviewActivity;
 
-public class CameraPermissionActivity extends AppCompatActivity {
+public class CameraPermissionActivity extends AppCompatActivity implements ActivityCompat.OnRequestPermissionsResultCallback {
 
-    private static final String TAG = "CameraPermissionA";
+    private static final int PERMISSION_REQUEST_CAMERA = 0;
 
-    private static final int CAMERA_ID = 0;
-    private Camera mCamera;
+    private View mLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera_permission);
 
+        mLayout = findViewById(R.id.main_layout);
 
-        // Open an instance of the first camera and retrieve its info.
-        mCamera = getCameraInstance(CAMERA_ID);
-        Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
-        Camera.getCameraInfo(CAMERA_ID, cameraInfo);
-
-        if (mCamera == null) {
-            // Camera is not available, display error message
-            setContentView(R.layout.activity_camera_unavailable);
-        } else {
-
-            setContentView(R.layout.activity_camera);
-
-            // Get the rotation of the screen to adjust the preview image accordingly.
-            int displayRotation = getWindowManager().getDefaultDisplay().getRotation();
-
-            // Create the Preview view and set it as the content of this Activity.
-            CameraPreview cameraPreview = new CameraPreview(this, null,
-                    0, mCamera, cameraInfo, displayRotation);
-            FrameLayout preview = findViewById(R.id.camera_preview);
-            preview.addView(cameraPreview);
-        }
+        // Register a listener for the 'Show Camera Preview' button.
+        findViewById(R.id.button_open_camera).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showCameraPreview();
+            }
+        });
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-        // Stop camera access
-        releaseCamera();
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        // BEGIN_INCLUDE(onRequestPermissionsResult)
+        if (requestCode == PERMISSION_REQUEST_CAMERA) {
+            // Request for camera permission.
+            if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission has been granted. Start camera preview Activity.
+                Snackbar.make(mLayout, R.string.camera_permission_granted,
+                        Snackbar.LENGTH_SHORT)
+                        .show();
+                startCamera();
+            } else {
+                // Permission request was denied.
+                Snackbar.make(mLayout, R.string.camera_permission_denied,
+                        Snackbar.LENGTH_SHORT)
+                        .show();
+            }
+        }
+        // END_INCLUDE(onRequestPermissionsResult)
     }
 
-    private Camera getCameraInstance(int cameraId) {
-        Camera c = null;
-        try {
-            c = Camera.open(cameraId); // attempt to get a Camera instance
-        } catch (Exception e) {
-            // Camera is not available (in use or does not exist)
-            Log.e(TAG, "Camera " + cameraId + " is not available: " + e.getMessage());
+    private void showCameraPreview() {
+        // BEGIN_INCLUDE(startCamera)
+        // Check if the Camera permission has been granted
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                == PackageManager.PERMISSION_GRANTED) {
+            // Permission is already available, start camera preview
+            Snackbar.make(mLayout,
+                    R.string.camera_permission_available,
+                    Snackbar.LENGTH_SHORT).show();
+            startCamera();
+        } else {
+            // Permission is missing and must be requested.
+            requestCameraPermission();
         }
-        return c; // returns null if camera is unavailable
+        // END_INCLUDE(startCamera)
     }
 
-    private void releaseCamera() {
-        if (mCamera != null) {
-            mCamera.release();
-            mCamera = null;
+    private void requestCameraPermission() {
+        // Permission has not been granted and must be requested.
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                Manifest.permission.CAMERA)) {
+            // Provide an additional rationale to the user if the permission was not granted
+            // and the user would benefit from additional context for the use of the permission.
+            // Display a SnackBar with cda button to request the missing permission.
+            Snackbar.make(mLayout, R.string.camera_access_required,
+                    Snackbar.LENGTH_INDEFINITE).setAction(R.string.ok, new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // Request the permission
+                    ActivityCompat.requestPermissions(CameraPermissionActivity.this,
+                            new String[]{Manifest.permission.CAMERA},
+                            PERMISSION_REQUEST_CAMERA);
+                }
+            }).show();
+
+        } else {
+            Snackbar.make(mLayout, R.string.camera_unavailable, Snackbar.LENGTH_SHORT).show();
+            // Request the permission. The result will be received in onRequestPermissionResult().
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.CAMERA}, PERMISSION_REQUEST_CAMERA);
         }
     }
+
+
+    private void startCamera() {
+        Intent intent = new Intent(this, CameraPreviewActivity.class);
+        startActivity(intent);
+    }
+
 }

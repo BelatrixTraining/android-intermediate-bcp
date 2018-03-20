@@ -39,7 +39,14 @@
         <activity
             android:name=".camera.CameraPreviewActivity"
             android:exported="false" />
-        <activity android:name=".ContactPermissionsActivity"></activity>
+
+        <activity android:name=".ContactPermissionsActivity">
+            <!--<intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>-->
+        </activity>
     </application>
 
 </manifest>
