@@ -20,3 +20,5 @@ Android Intermediate Course -Belatrix BCP - February 2018
 - App Permissions https://developer.android.com/guide/topics/permissions/overview.html
 
 - App Permissions Best Practices https://developer.android.com/training/permissions/usage-notes.html
+
+- Exoplayer http://google.github.io/ExoPlayer/
