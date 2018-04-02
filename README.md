@@ -1,38 +1,29 @@
 # Android-Intermediate-BCP
 
-Android Intermediate Course -Belatrix BCP - February 2018
+Android Intermediate Course -Belatrix BCP - March 2018
 
-## Instructor
+## Lesson9
 
-Eduardo José Medina Alfaro
+- Preparar Aplicación para producción
 
-e-mail: emedinaa@gmail.com
-
-github: https://github.com/emedinaa
-
-## Temary
-
-- Storage Options
-
-  - Files
-  - Shared Preferences
-  - Local Database (Sqlite)
-  - Room
-  - Network Connection
-
-- Android Architecture Patterns
-
-  - MVP
+  - Crear credenciales 
   
-- Runtime permissions
+  - Firmar app
+  
+  - Generar APK
 
-- Material Design and Animations
+- Google Play console
 
-- Multimedia
-
-- Google Play Console
+  - Crear ficha
+  
+  - Modos de distribución
+  
+  - Entorno de pruebas
+  
+  - Publicar App
+  
 
 ## References 
 
-- Storage Options https://developer.android.com/guide/topics/data/data-storage.html
+- Google Play console https://developer.android.com/distribute/console/index.html
 
