@@ -26,27 +26,27 @@ Android Intermediate Course -Belatrix BCP - March 2018
 
 - Generar una APK firmada
 
-![]("./images/generate_apk1.png")
+![]("/images/generate_apk1.png")
 
-![]("./images/generate_apk2.png")
+![]("/images/generate_apk2.png")
 
-![]("./images/generate_apk3.png")
+![]("/images/generate_apk3.png")
 
 - Crear credenciales
 
-![]("./images/generate_apk4.png")
+![]("/images/generate_apk4.png")
 
-![]("./images/generate_apk5.png")
+![]("/images/generate_apk5.png")
 
-![]("./images/generate_apk5-1.png")
+![]("/images/generate_apk5-1.png")
 
 - Crear APK
 
-![]("./images/generate_apk6.png")
+![]("/images/generate_apk6.png")
 
-![]("./images/generate_apk7.png")
+![]("/images/generate_apk7.png")
 
-![]("./images/output_release.png")
+![]("/images/output_release.png")
 
 - Comandos
 
@@ -56,7 +56,7 @@ Android Intermediate Course -Belatrix BCP - March 2018
 	./gradlew installDebug
 ```
 
-![]("./images/output_debug.png")
+![]("/images/output_debug.png")
 
 
 ## References 
