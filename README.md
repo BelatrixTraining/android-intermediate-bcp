@@ -106,3 +106,6 @@ Categorización
 
 - Build Your App from the Command Line https://developer.android.com/studio/build/building-cmdline.html
 
+- Configure Build Variants https://developer.android.com/studio/build/build-variants.html
+
+
