@@ -70,18 +70,18 @@ Descripción breve (80)
 Descripción completa (4000)
 
 Recursos gráficos
+	
+> Captura de pantalla para teléfono (min 2)
 
-	Captura de pantalla para teléfono (min 2)
+> Icono de alta resolución 512x512
 
-	Icono de alta resolución 512x512
+> Imagen destacada 1024x500
 
-	Imagen destacada 1024x500
-
-	Imagen promocional 180x120
+> Imagen promocional 180x120
 
 Categorización
 
-	Tipo de app y categoría
+> Tipo de app y categoría
 
 - Clasificación de Contenido
 
@@ -89,13 +89,13 @@ Categorización
 
 - Version de la aplicación
 
-	Producción (Google play)
+	> Producción (Google play)
 
-	Beta (Google play)
+	> Beta (Google play)
 
-	Alfa
+	> Alfa
 
-	Prueba interna	
+	> Prueba interna	
 
 
 ## References 
