@@ -108,4 +108,5 @@ Categorización
 
 - Configure Build Variants https://developer.android.com/studio/build/build-variants.html
 
+- App Privay Policy generator https://app-privacy-policy-generator.firebaseapp.com/
 
