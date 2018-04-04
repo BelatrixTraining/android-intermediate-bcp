@@ -110,3 +110,5 @@ Categorización
 
 - App Privay Policy generator https://app-privacy-policy-generator.firebaseapp.com/
 
+- Developer Policy Center https://play.google.com/about/developer-content-policy/#!?modal_active=none
+
