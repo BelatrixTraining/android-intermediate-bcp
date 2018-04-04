@@ -96,7 +96,10 @@ public class NoteListMVPActivity extends AppCompatActivity
 
     @Override
     public void renderNotesBL(List<NoteBLEntity> mNotes) {
-        Log.v("CONSOLE", "renderNotes");
+        if(BuildConfig.DEBUG){
+            Log.v("CONSOLE", "renderNotes");
+        }
+
         lsNoteEntities= mNotes;
         noteAdapterBL= new NoteBLAdapter(this,lsNoteEntities);
         lstNotes.setAdapter(noteAdapterBL);
